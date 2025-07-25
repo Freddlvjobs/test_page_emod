@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>OperatorPanelFR</title>
+
+    <script type="text/javascript" src="./OperatorPanelFR37_files/jquery-2.1.0.js.téléchargement"></script>
+
+    <script type="text/javascript" src="./OperatorPanelFR37_files/bootstrap.min.js.téléchargement"></script>
+    <link rel="stylesheet" type="text/css" href="./OperatorPanelFR37_files/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./OperatorPanelFR37_files/bootstrap-table.css">
+    <link rel="stylesheet" type="text/css" href="./OperatorPanelFR37_files/bootstrap-datepicker3.min.css">
+    <script type="text/javascript" src="./OperatorPanelFR37_files/bootstrap-table.js.téléchargement"></script>
+    <script type="text/javascript" src="./OperatorPanelFR37_files/bootstrap-datepicker.min.js.téléchargement"></script>
+    <script type="text/javascript" src="./OperatorPanelFR37_files/axios.0.21.4.min.js.téléchargement"></script>
+    <meta name="csrf-token" content="vvgjUVxfdL8OIR0gSABVzSOf1JwxTW8C5LEVqmUW">
+            <script type="text/javascript">
+          window.APP_CONFIG = {
+            VAPID_PUBLIC_KEY: "",
+          }
+        </script>
+        <!--script type="module">
+			import PushNotification from '/js/push/index.js?1735000243';
+			PushNotification.init({"id":19921})
+		</script-->
+        
+
+    <style type="text/css">
+        .online-red {
+            color: red;
+        }
+
+        .online-green {
+            color: lightgreen;
+        }
+
+        .container-lg {
+            width: calc(100% - 30px);
+            padding-right: 0;
+            padding-left: 0;
+        }
+
+        @media (max-width: 768px) {
+            #operator_admin_menu li {
+                width: 100%;
+            }
+        }
+
+        /*Make sure that the mobile menu collapses below 1200px */
+        @media (max-width: 1200px) {
+            .navbar-header {
+                float: none;
+            }
+
+            .navbar-left, .navbar-right {
+                float: none !important;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .navbar-collapse {
+                border-top: 1px solid transparent;
+                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            }
+
+            .navbar-fixed-top {
+                top: 0;
+                border-width: 0 0 1px;
+            }
+
+            .navbar-collapse.collapse {
+                display: none !important;
+            }
+
+            .navbar-nav {
+                float: none !important;
+                margin-top: 7.5px;
+            }
+
+            .navbar-nav > li {
+                float: none;
+            }
+
+            .navbar-nav > li > a {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .collapse.in {
+                display: block !important;
+            }
+        }
+
+        .operator-color {
+            display: inline-block;
+            border-radius: 50%;
+            width: 14px;
+            height: 14px;
+            box-sizing: border-box;
+        }
+
+        .operator-color-none {
+            background-color: transparent;
+        }
+
+        .operator-color-yellow {
+            border: 1px solid #F0E68C;
+        }
+
+        .pagination > li > select {
+            position: relative;
+            float: left;
+            padding: 7px 12px;
+            margin-left: -1px;
+            line-height: 1.42857143;
+            color: #428bca;
+            text-decoration: none;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            height: 34px;
+        }
+
+        .badge-warning {
+            color: #fff;
+            background-color: #ffc107;
+        }
+
+        .datepicker table tr th.dow:nth-child(5n+6),
+        .datepicker table tr th.dow:nth-child(5n+7) {
+            color: red;
+        }
+
+        .modal .modal-dialog .modal-content {
+            border-radius: 6px;
+            padding: 0;
+        }
+
+        .modal .modal-dialog .close {
+            color: #ffffff;
+            opacity: 1;
+            text-shadow: 0 1px 0 #000000;
+        }
+
+        .modal .modal-dialog .modal-content .modal-header {
+            padding: 9px 15px;
+            border-bottom: 1px solid #326896;
+            background-color: #428bca;
+            color: #ffffff;
+            -webkit-border-top-left-radius: 6px;
+            -webkit-border-top-right-radius: 6px;
+            -moz-border-radius-topleft: 6px;
+            -moz-border-radius-topright: 6px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        .modal .modal-dialog .modal-content .modal-body {
+            padding-top: 10px;
+        }
+
+        .modal .modal-dialog .modal-content .modal-footer {
+            padding-top: 15px;
+        }
+
+        .modal.modal-alert .modal-dialog .modal-content .modal-header {
+            border-bottom: 1px solid #d9534f;
+            background-color: #d9534f;
+        }
+
+        .modal.modal-success .modal-dialog .modal-content .modal-header {
+            background-color: #449d44;
+        }
+
+        .overflow-hidden {
+            overflow: hidden;
+        }
+
+        .content {
+            min-height: 100vh;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            background-color: #222;
+            width: 100%;
+
+        }
+        .footer-content {
+            display: flex;
+            justify-content: center;
+        }
+        .footer-address {
+            font-size: 12px;
+            color: #eaeaef;
+        }
+    </style>
+
+    <script type="text/javascript">
+      if (window.top !== window.self) {
+        window.top.location.href = window.location.href;
+      }
+
+      $(function () {
+        $('.delete-are-you-sure').click(function () {
+          if ($(this).data('message')) {
+            return window.confirm($(this).data('message'));
+          }
+          return window.confirm("Es-tu sûr?");
+        });
+
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+      })
+    </script>
+    <style>._captureBlock_na0g2_1{transition:none;position:absolute;z-index:2147483642;left:0;top:0;height:0;width:0;background-color:#000;opacity:.3;box-sizing:border-box}._one-click-ocr_6cdrj_1{--ocr-blue: #0d6efd;--ocr-indigo: #6610f2;--ocr-purple: #6f42c1;--ocr-pink: #d63384;--ocr-red: #dc3545;--ocr-orange: #fd7e14;--ocr-yellow: #ffc107;--ocr-green: #198754;--ocr-teal: #20c997;--ocr-cyan: #0dcaf0;--ocr-black: #000;--ocr-white: #fff;--ocr-gray: #6c757d;--ocr-gray-dark: #343a40;--ocr-gray-100: #f8f9fa;--ocr-gray-200: #e9ecef;--ocr-gray-300: #dee2e6;--ocr-gray-400: #ced4da;--ocr-gray-500: #adb5bd;--ocr-gray-600: #6c757d;--ocr-gray-700: #495057;--ocr-gray-800: #343a40;--ocr-gray-900: #212529;--ocr-primary: #0d6efd;--ocr-secondary: #6c757d;--ocr-success: #198754;--ocr-info: #0dcaf0;--ocr-warning: #ffc107;--ocr-danger: #dc3545;--ocr-light: #f8f9fa;--ocr-dark: #212529;--ocr-primary-rgb: 13, 110, 253;--ocr-secondary-rgb: 108, 117, 125;--ocr-success-rgb: 25, 135, 84;--ocr-info-rgb: 13, 202, 240;--ocr-warning-rgb: 255, 193, 7;--ocr-danger-rgb: 220, 53, 69;--ocr-light-rgb: 248, 249, 250;--ocr-dark-rgb: 33, 37, 41;--ocr-primary-text-emphasis: #052c65;--ocr-secondary-text-emphasis: #2b2f32;--ocr-success-text-emphasis: #0a3622;--ocr-info-text-emphasis: #055160;--ocr-warning-text-emphasis: #664d03;--ocr-danger-text-emphasis: #58151c;--ocr-light-text-emphasis: #495057;--ocr-dark-text-emphasis: #495057;--ocr-primary-bg-subtle: #cfe2ff;--ocr-secondary-bg-subtle: #e2e3e5;--ocr-success-bg-subtle: #d1e7dd;--ocr-info-bg-subtle: #cff4fc;--ocr-warning-bg-subtle: #fff3cd;--ocr-danger-bg-subtle: #f8d7da;--ocr-light-bg-subtle: #fcfcfd;--ocr-dark-bg-subtle: #ced4da;--ocr-primary-border-subtle: #9ec5fe;--ocr-secondary-border-subtle: #c4c8cb;--ocr-success-border-subtle: #a3cfbb;--ocr-info-border-subtle: #9eeaf9;--ocr-warning-border-subtle: #ffe69c;--ocr-danger-border-subtle: #f1aeb5;--ocr-light-border-subtle: #e9ecef;--ocr-dark-border-subtle: #adb5bd;--ocr-white-rgb: 255, 255, 255;--ocr-black-rgb: 0, 0, 0;--ocr-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";--ocr-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;--ocr-gradient: linear-gradient(180deg, rgba(255, 255, 255, .15), rgba(255, 255, 255, 0));--ocr-body-font-family: var(--ocr-font-sans-serif);--ocr-body-font-size: 1rem;--ocr-body-font-weight: 400;--ocr-body-line-height: 1.5;--ocr-body-color: #212529;--ocr-body-color-rgb: 33, 37, 41;--ocr-body-bg: #fff;--ocr-body-bg-rgb: 255, 255, 255;--ocr-emphasis-color: #000;--ocr-emphasis-color-rgb: 0, 0, 0;--ocr-secondary-color: rgba(33, 37, 41, .75);--ocr-secondary-color-rgb: 33, 37, 41;--ocr-secondary-bg: #e9ecef;--ocr-secondary-bg-rgb: 233, 236, 239;--ocr-tertiary-color: rgba(33, 37, 41, .5);--ocr-tertiary-color-rgb: 33, 37, 41;--ocr-tertiary-bg: #f8f9fa;--ocr-tertiary-bg-rgb: 248, 249, 250;--ocr-heading-color: inherit;--ocr-link-color: #0d6efd;--ocr-link-color-rgb: 13, 110, 253;--ocr-link-decoration: underline;--ocr-link-hover-color: #0a58ca;--ocr-link-hover-color-rgb: 10, 88, 202;--ocr-code-color: #d63384;--ocr-highlight-color: #212529;--ocr-highlight-bg: #fff3cd;--ocr-border-width: 1px;--ocr-border-style: solid;--ocr-border-color: #dee2e6;--ocr-border-color-translucent: rgba(0, 0, 0, .175);--ocr-border-radius: .375rem;--ocr-border-radius-sm: .25rem;--ocr-border-radius-lg: .5rem;--ocr-border-radius-xl: 1rem;--ocr-border-radius-xxl: 2rem;--ocr-border-radius-2xl: var(--ocr-border-radius-xxl);--ocr-border-radius-pill: 50rem;--ocr-box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);--ocr-box-shadow-sm: 0 .125rem .25rem rgba(0, 0, 0, .075);--ocr-box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, .175);--ocr-box-shadow-inset: inset 0 1px 2px rgba(0, 0, 0, .075);--ocr-focus-ring-width: .25rem;--ocr-focus-ring-opacity: .25;--ocr-focus-ring-color: rgba(13, 110, 253, .25);--ocr-form-valid-color: #198754;--ocr-form-valid-border-color: #198754;--ocr-form-invalid-color: #dc3545;--ocr-form-invalid-border-color: #dc3545;text-align:left}._one-click-ocr_6cdrj_1 ._modal_6cdrj_121{--ocr-modal-zindex: 1055;--ocr-modal-width: 500px;--ocr-modal-padding: 1rem;--ocr-modal-margin: .5rem;--ocr-modal-color: ;--ocr-modal-bg: var(--ocr-body-bg);--ocr-modal-border-color: var(--ocr-border-color-translucent);--ocr-modal-border-width: var(--ocr-border-width);--ocr-modal-border-radius: var(--ocr-border-radius-lg);--ocr-modal-box-shadow: var(--ocr-box-shadow-sm);--ocr-modal-inner-border-radius: calc(var(--ocr-border-radius-lg) - (var(--ocr-border-width)));--ocr-modal-header-padding-x: 1rem;--ocr-modal-header-padding-y: 1rem;--ocr-modal-header-padding: 1rem 1rem;--ocr-modal-header-border-color: var(--ocr-border-color);--ocr-modal-header-border-width: var(--ocr-border-width);--ocr-modal-title-line-height: 1.5;--ocr-modal-footer-gap: .5rem;--ocr-modal-footer-bg: ;--ocr-modal-footer-border-color: var(--ocr-border-color);--ocr-modal-footer-border-width: var(--ocr-border-width);position:fixed;top:0;left:0;z-index:var(--ocr-modal-zindex);display:none;width:100%;height:100%;overflow-x:hidden;overflow-y:auto;outline:0}._one-click-ocr_6cdrj_1 ._modal-dialog_6cdrj_154{position:relative;width:auto;margin:var(--ocr-modal-margin);pointer-events:none}._modal_6cdrj_121._fade_6cdrj_160 ._one-click-ocr_6cdrj_1 ._modal-dialog_6cdrj_154{transition:transform .3s ease-out;transform:translateY(-50px)}@media (prefers-reduced-motion: reduce){._modal_6cdrj_121._fade_6cdrj_160 ._one-click-ocr_6cdrj_1 ._modal-dialog_6cdrj_154{transition:none}}._modal_6cdrj_121._show_6cdrj_169 ._one-click-ocr_6cdrj_1 ._modal-dialog_6cdrj_154{transform:none}._modal_6cdrj_121._modal-static_6cdrj_172 ._one-click-ocr_6cdrj_1 ._modal-dialog_6cdrj_154{transform:scale(1.02)}._one-click-ocr_6cdrj_1 ._modal-dialog-scrollable_6cdrj_175{height:calc(100% - var(--ocr-modal-margin) * 2)}._one-click-ocr_6cdrj_1 ._modal-dialog-scrollable_6cdrj_175 ._modal-content_6cdrj_178{max-height:100%;overflow:hidden}._one-click-ocr_6cdrj_1 ._modal-dialog-scrollable_6cdrj_175 ._modal-body_6cdrj_182{overflow-y:auto}._one-click-ocr_6cdrj_1 ._modal-dialog-centered_6cdrj_185{display:flex;align-items:center;min-height:calc(100% - var(--ocr-modal-margin) * 2)}._one-click-ocr_6cdrj_1 ._modal-content_6cdrj_178{position:relative;display:flex;flex-direction:column;width:100%;color:var(--ocr-modal-color);pointer-events:auto;background-color:var(--ocr-modal-bg);background-clip:padding-box;border:var(--ocr-modal-border-width) solid var(--ocr-modal-border-color);border-radius:var(--ocr-modal-border-radius);outline:0}._one-click-ocr_6cdrj_1 ._modal-backdrop_6cdrj_203{--ocr-backdrop-zindex: 1050;--ocr-backdrop-bg: #000;--ocr-backdrop-opacity: .5;position:fixed;top:0;left:0;z-index:var(--ocr-backdrop-zindex);width:100vw;height:100vh;background-color:var(--ocr-backdrop-bg)}._one-click-ocr_6cdrj_1 ._modal-backdrop_6cdrj_203._fade_6cdrj_160{opacity:0}._one-click-ocr_6cdrj_1 ._modal-backdrop_6cdrj_203._show_6cdrj_169{opacity:var(--ocr-backdrop-opacity)}._one-click-ocr_6cdrj_1 ._modal-header_6cdrj_221{display:flex;flex-shrink:0;align-items:center;justify-content:space-between;padding:var(--ocr-modal-header-padding);border-bottom:var(--ocr-modal-header-border-width) solid var(--ocr-modal-header-border-color);border-top-left-radius:var(--ocr-modal-inner-border-radius);border-top-right-radius:var(--ocr-modal-inner-border-radius)}._one-click-ocr_6cdrj_1 ._modal-header_6cdrj_221 ._btn-close_6cdrj_231{padding:calc(var(--ocr-modal-header-padding-y) * .5) calc(var(--ocr-modal-header-padding-x) * .5);margin:calc(-.5 * var(--ocr-modal-header-padding-y)) calc(-.5 * var(--ocr-modal-header-padding-x)) calc(-.5 * var(--ocr-modal-header-padding-y)) auto}._one-click-ocr_6cdrj_1 ._modal-title_6cdrj_235{margin-bottom:0;line-height:var(--ocr-modal-title-line-height)}._one-click-ocr_6cdrj_1 ._modal-body_6cdrj_182{position:relative;flex:1 1 auto;padding:var(--ocr-modal-padding)}._one-click-ocr_6cdrj_1 ._modal-footer_6cdrj_244{display:flex;flex-shrink:0;flex-wrap:wrap;align-items:center;justify-content:flex-end;padding:calc(var(--ocr-modal-padding) - var(--ocr-modal-footer-gap) * .5);background-color:var(--ocr-modal-footer-bg);border-top:var(--ocr-modal-footer-border-width) solid var(--ocr-modal-footer-border-color);border-bottom-right-radius:var(--ocr-modal-inner-border-radius);border-bottom-left-radius:var(--ocr-modal-inner-border-radius)}._one-click-ocr_6cdrj_1 ._modal-footer_6cdrj_244>*{margin:calc(var(--ocr-modal-footer-gap) * .5)}@media (min-width: 576px){._one-click-ocr_6cdrj_1 ._modal_6cdrj_121{--ocr-modal-margin: 1.75rem;--ocr-modal-box-shadow: var(--ocr-box-shadow)}._one-click-ocr_6cdrj_1 ._modal-dialog_6cdrj_154{max-width:var(--ocr-modal-width);margin-right:auto;margin-left:auto}._one-click-ocr_6cdrj_1 ._modal-sm_6cdrj_269{--ocr-modal-width: 300px}}@media (min-width: 992px){._one-click-ocr_6cdrj_1 ._modal-lg_6cdrj_274,._one-click-ocr_6cdrj_1 ._modal-xl_6cdrj_275{--ocr-modal-width: 800px}}@media (min-width: 1200px){._one-click-ocr_6cdrj_1 ._modal-xl_6cdrj_275{--ocr-modal-width: 1140px}}._one-click-ocr_6cdrj_1 ._modal-fullscreen_6cdrj_284{width:100vw;max-width:none;height:100%;margin:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen_6cdrj_284 ._modal-content_6cdrj_178{height:100%;border:0;border-radius:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen_6cdrj_284 ._modal-header_6cdrj_221,._one-click-ocr_6cdrj_1 ._modal-fullscreen_6cdrj_284 ._modal-footer_6cdrj_244{border-radius:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen_6cdrj_284 ._modal-body_6cdrj_182{overflow-y:auto}@media (max-width: 575.98px){._one-click-ocr_6cdrj_1 ._modal-fullscreen-sm-down_6cdrj_303{width:100vw;max-width:none;height:100%;margin:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-sm-down_6cdrj_303 ._modal-content_6cdrj_178{height:100%;border:0;border-radius:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-sm-down_6cdrj_303 ._modal-header_6cdrj_221,._one-click-ocr_6cdrj_1 ._modal-fullscreen-sm-down_6cdrj_303 ._modal-footer_6cdrj_244{border-radius:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-sm-down_6cdrj_303 ._modal-body_6cdrj_182{overflow-y:auto}}@media (max-width: 767.98px){._one-click-ocr_6cdrj_1 ._modal-fullscreen-md-down_6cdrj_323{width:100vw;max-width:none;height:100%;margin:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-md-down_6cdrj_323 ._modal-content_6cdrj_178{height:100%;border:0;border-radius:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-md-down_6cdrj_323 ._modal-header_6cdrj_221,._one-click-ocr_6cdrj_1 ._modal-fullscreen-md-down_6cdrj_323 ._modal-footer_6cdrj_244{border-radius:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-md-down_6cdrj_323 ._modal-body_6cdrj_182{overflow-y:auto}}@media (max-width: 991.98px){._one-click-ocr_6cdrj_1 ._modal-fullscreen-lg-down_6cdrj_343{width:100vw;max-width:none;height:100%;margin:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-lg-down_6cdrj_343 ._modal-content_6cdrj_178{height:100%;border:0;border-radius:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-lg-down_6cdrj_343 ._modal-header_6cdrj_221,._one-click-ocr_6cdrj_1 ._modal-fullscreen-lg-down_6cdrj_343 ._modal-footer_6cdrj_244{border-radius:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-lg-down_6cdrj_343 ._modal-body_6cdrj_182{overflow-y:auto}}@media (max-width: 1199.98px){._one-click-ocr_6cdrj_1 ._modal-fullscreen-xl-down_6cdrj_363{width:100vw;max-width:none;height:100%;margin:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-xl-down_6cdrj_363 ._modal-content_6cdrj_178{height:100%;border:0;border-radius:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-xl-down_6cdrj_363 ._modal-header_6cdrj_221,._one-click-ocr_6cdrj_1 ._modal-fullscreen-xl-down_6cdrj_363 ._modal-footer_6cdrj_244{border-radius:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-xl-down_6cdrj_363 ._modal-body_6cdrj_182{overflow-y:auto}}@media (max-width: 1399.98px){._one-click-ocr_6cdrj_1 ._modal-fullscreen-xxl-down_6cdrj_383{width:100vw;max-width:none;height:100%;margin:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-xxl-down_6cdrj_383 ._modal-content_6cdrj_178{height:100%;border:0;border-radius:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-xxl-down_6cdrj_383 ._modal-header_6cdrj_221,._one-click-ocr_6cdrj_1 ._modal-fullscreen-xxl-down_6cdrj_383 ._modal-footer_6cdrj_244{border-radius:0}._one-click-ocr_6cdrj_1 ._modal-fullscreen-xxl-down_6cdrj_383 ._modal-body_6cdrj_182{overflow-y:auto}}._one-click-ocr_6cdrj_1 ._btn_6cdrj_231{--ocr-btn-padding-x: .75rem;--ocr-btn-padding-y: .375rem;--ocr-btn-font-family: ;--ocr-btn-font-size: 1rem;--ocr-btn-font-weight: 400;--ocr-btn-line-height: 1.5;--ocr-btn-color: var(--ocr-body-color);--ocr-btn-bg: transparent;--ocr-btn-border-width: var(--ocr-border-width);--ocr-btn-border-color: transparent;--ocr-btn-border-radius: var(--ocr-border-radius);--ocr-btn-hover-border-color: transparent;--ocr-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 1px rgba(0, 0, 0, .075);--ocr-btn-disabled-opacity: .65;--ocr-btn-focus-box-shadow: 0 0 0 .25rem rgba(var(--ocr-btn-focus-shadow-rgb), .5);display:inline-block;padding:var(--ocr-btn-padding-y) var(--ocr-btn-padding-x);font-family:var(--ocr-btn-font-family);font-size:var(--ocr-btn-font-size);font-weight:var(--ocr-btn-font-weight);line-height:var(--ocr-btn-line-height);color:var(--ocr-btn-color);text-align:center;text-decoration:none;vertical-align:middle;cursor:pointer;-webkit-user-select:none;user-select:none;border:var(--ocr-btn-border-width) solid var(--ocr-btn-border-color);border-radius:var(--ocr-btn-border-radius);background-color:var(--ocr-btn-bg);transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out}@media (prefers-reduced-motion: reduce){._one-click-ocr_6cdrj_1 ._btn_6cdrj_231{transition:none}}._one-click-ocr_6cdrj_1 ._btn_6cdrj_231:hover{color:var(--ocr-btn-hover-color);background-color:var(--ocr-btn-hover-bg);border-color:var(--ocr-btn-hover-border-color)}._btn-check_6cdrj_445+._one-click-ocr_6cdrj_1 ._btn_6cdrj_231:hover{color:var(--ocr-btn-color);background-color:var(--ocr-btn-bg);border-color:var(--ocr-btn-border-color)}._one-click-ocr_6cdrj_1 ._btn_6cdrj_231:focus-visible{color:var(--ocr-btn-hover-color);background-color:var(--ocr-btn-hover-bg);border-color:var(--ocr-btn-hover-border-color);outline:0;box-shadow:var(--ocr-btn-focus-box-shadow)}._btn-check_6cdrj_445:focus-visible+._one-click-ocr_6cdrj_1 ._btn_6cdrj_231{border-color:var(--ocr-btn-hover-border-color);outline:0;box-shadow:var(--ocr-btn-focus-box-shadow)}._btn-check_6cdrj_445:checked+._one-click-ocr_6cdrj_1 ._btn_6cdrj_231,:not(._btn-check_6cdrj_445)+._one-click-ocr_6cdrj_1 ._btn_6cdrj_231:active,._one-click-ocr_6cdrj_1 ._btn_6cdrj_231:first-child:active,._one-click-ocr_6cdrj_1 ._btn_6cdrj_231._active_6cdrj_462,._one-click-ocr_6cdrj_1 ._btn_6cdrj_231._show_6cdrj_169{color:var(--ocr-btn-active-color);background-color:var(--ocr-btn-active-bg);border-color:var(--ocr-btn-active-border-color)}._btn-check_6cdrj_445:checked+._one-click-ocr_6cdrj_1 ._btn_6cdrj_231:focus-visible,:not(._btn-check_6cdrj_445)+._one-click-ocr_6cdrj_1 ._btn_6cdrj_231:active:focus-visible,._one-click-ocr_6cdrj_1 ._btn_6cdrj_231:first-child:active:focus-visible,._one-click-ocr_6cdrj_1 ._btn_6cdrj_231._active_6cdrj_462:focus-visible,._one-click-ocr_6cdrj_1 ._btn_6cdrj_231._show_6cdrj_169:focus-visible{box-shadow:var(--ocr-btn-focus-box-shadow)}._one-click-ocr_6cdrj_1 ._btn_6cdrj_231:disabled,._one-click-ocr_6cdrj_1 ._btn_6cdrj_231._disabled_6cdrj_470,fieldset:disabled ._one-click-ocr_6cdrj_1 ._btn_6cdrj_231{color:var(--ocr-btn-disabled-color);pointer-events:none;background-color:var(--ocr-btn-disabled-bg);border-color:var(--ocr-btn-disabled-border-color);opacity:var(--ocr-btn-disabled-opacity)}._one-click-ocr_6cdrj_1 ._btn-primary_6cdrj_477{--ocr-btn-color: #fff;--ocr-btn-bg: #0d6efd;--ocr-btn-border-color: #0d6efd;--ocr-btn-hover-color: #fff;--ocr-btn-hover-bg: #0b5ed7;--ocr-btn-hover-border-color: #0a58ca;--ocr-btn-focus-shadow-rgb: 49, 132, 253;--ocr-btn-active-color: #fff;--ocr-btn-active-bg: #0a58ca;--ocr-btn-active-border-color: #0a53be;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #fff;--ocr-btn-disabled-bg: #0d6efd;--ocr-btn-disabled-border-color: #0d6efd}._one-click-ocr_6cdrj_1 ._btn-secondary_6cdrj_493{--ocr-btn-color: #fff;--ocr-btn-bg: #6c757d;--ocr-btn-border-color: #6c757d;--ocr-btn-hover-color: #fff;--ocr-btn-hover-bg: #5c636a;--ocr-btn-hover-border-color: #565e64;--ocr-btn-focus-shadow-rgb: 130, 138, 145;--ocr-btn-active-color: #fff;--ocr-btn-active-bg: #565e64;--ocr-btn-active-border-color: #51585e;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #fff;--ocr-btn-disabled-bg: #6c757d;--ocr-btn-disabled-border-color: #6c757d}._one-click-ocr_6cdrj_1 ._btn-success_6cdrj_509{--ocr-btn-color: #fff;--ocr-btn-bg: #198754;--ocr-btn-border-color: #198754;--ocr-btn-hover-color: #fff;--ocr-btn-hover-bg: #157347;--ocr-btn-hover-border-color: #146c43;--ocr-btn-focus-shadow-rgb: 60, 153, 110;--ocr-btn-active-color: #fff;--ocr-btn-active-bg: #146c43;--ocr-btn-active-border-color: #13653f;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #fff;--ocr-btn-disabled-bg: #198754;--ocr-btn-disabled-border-color: #198754}._one-click-ocr_6cdrj_1 ._btn-info_6cdrj_525{--ocr-btn-color: #000;--ocr-btn-bg: #0dcaf0;--ocr-btn-border-color: #0dcaf0;--ocr-btn-hover-color: #000;--ocr-btn-hover-bg: #31d2f2;--ocr-btn-hover-border-color: #25cff2;--ocr-btn-focus-shadow-rgb: 11, 172, 204;--ocr-btn-active-color: #000;--ocr-btn-active-bg: #3dd5f3;--ocr-btn-active-border-color: #25cff2;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #000;--ocr-btn-disabled-bg: #0dcaf0;--ocr-btn-disabled-border-color: #0dcaf0}._one-click-ocr_6cdrj_1 ._btn-warning_6cdrj_541{--ocr-btn-color: #000;--ocr-btn-bg: #ffc107;--ocr-btn-border-color: #ffc107;--ocr-btn-hover-color: #000;--ocr-btn-hover-bg: #ffca2c;--ocr-btn-hover-border-color: #ffc720;--ocr-btn-focus-shadow-rgb: 217, 164, 6;--ocr-btn-active-color: #000;--ocr-btn-active-bg: #ffcd39;--ocr-btn-active-border-color: #ffc720;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #000;--ocr-btn-disabled-bg: #ffc107;--ocr-btn-disabled-border-color: #ffc107}._one-click-ocr_6cdrj_1 ._btn-danger_6cdrj_557{--ocr-btn-color: #fff;--ocr-btn-bg: #dc3545;--ocr-btn-border-color: #dc3545;--ocr-btn-hover-color: #fff;--ocr-btn-hover-bg: #bb2d3b;--ocr-btn-hover-border-color: #b02a37;--ocr-btn-focus-shadow-rgb: 225, 83, 97;--ocr-btn-active-color: #fff;--ocr-btn-active-bg: #b02a37;--ocr-btn-active-border-color: #a52834;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #fff;--ocr-btn-disabled-bg: #dc3545;--ocr-btn-disabled-border-color: #dc3545}._one-click-ocr_6cdrj_1 ._btn-light_6cdrj_573{--ocr-btn-color: #000;--ocr-btn-bg: #f8f9fa;--ocr-btn-border-color: #f8f9fa;--ocr-btn-hover-color: #000;--ocr-btn-hover-bg: #d3d4d5;--ocr-btn-hover-border-color: #c6c7c8;--ocr-btn-focus-shadow-rgb: 211, 212, 213;--ocr-btn-active-color: #000;--ocr-btn-active-bg: #c6c7c8;--ocr-btn-active-border-color: #babbbc;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #000;--ocr-btn-disabled-bg: #f8f9fa;--ocr-btn-disabled-border-color: #f8f9fa}._one-click-ocr_6cdrj_1 ._btn-dark_6cdrj_589{--ocr-btn-color: #fff;--ocr-btn-bg: #212529;--ocr-btn-border-color: #212529;--ocr-btn-hover-color: #fff;--ocr-btn-hover-bg: #424649;--ocr-btn-hover-border-color: #373b3e;--ocr-btn-focus-shadow-rgb: 66, 70, 73;--ocr-btn-active-color: #fff;--ocr-btn-active-bg: #4d5154;--ocr-btn-active-border-color: #373b3e;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #fff;--ocr-btn-disabled-bg: #212529;--ocr-btn-disabled-border-color: #212529}._one-click-ocr_6cdrj_1 ._btn-outline-primary_6cdrj_605{--ocr-btn-color: #0d6efd;--ocr-btn-border-color: #0d6efd;--ocr-btn-hover-color: #fff;--ocr-btn-hover-bg: #0d6efd;--ocr-btn-hover-border-color: #0d6efd;--ocr-btn-focus-shadow-rgb: 13, 110, 253;--ocr-btn-active-color: #fff;--ocr-btn-active-bg: #0d6efd;--ocr-btn-active-border-color: #0d6efd;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #0d6efd;--ocr-btn-disabled-bg: transparent;--ocr-btn-disabled-border-color: #0d6efd;--ocr-gradient: none}._one-click-ocr_6cdrj_1 ._btn-outline-secondary_6cdrj_621{--ocr-btn-color: #6c757d;--ocr-btn-border-color: #6c757d;--ocr-btn-hover-color: #fff;--ocr-btn-hover-bg: #6c757d;--ocr-btn-hover-border-color: #6c757d;--ocr-btn-focus-shadow-rgb: 108, 117, 125;--ocr-btn-active-color: #fff;--ocr-btn-active-bg: #6c757d;--ocr-btn-active-border-color: #6c757d;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #6c757d;--ocr-btn-disabled-bg: transparent;--ocr-btn-disabled-border-color: #6c757d;--ocr-gradient: none}._one-click-ocr_6cdrj_1 ._btn-outline-success_6cdrj_637{--ocr-btn-color: #198754;--ocr-btn-border-color: #198754;--ocr-btn-hover-color: #fff;--ocr-btn-hover-bg: #198754;--ocr-btn-hover-border-color: #198754;--ocr-btn-focus-shadow-rgb: 25, 135, 84;--ocr-btn-active-color: #fff;--ocr-btn-active-bg: #198754;--ocr-btn-active-border-color: #198754;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #198754;--ocr-btn-disabled-bg: transparent;--ocr-btn-disabled-border-color: #198754;--ocr-gradient: none}._one-click-ocr_6cdrj_1 ._btn-outline-info_6cdrj_653{--ocr-btn-color: #0dcaf0;--ocr-btn-border-color: #0dcaf0;--ocr-btn-hover-color: #000;--ocr-btn-hover-bg: #0dcaf0;--ocr-btn-hover-border-color: #0dcaf0;--ocr-btn-focus-shadow-rgb: 13, 202, 240;--ocr-btn-active-color: #000;--ocr-btn-active-bg: #0dcaf0;--ocr-btn-active-border-color: #0dcaf0;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #0dcaf0;--ocr-btn-disabled-bg: transparent;--ocr-btn-disabled-border-color: #0dcaf0;--ocr-gradient: none}._one-click-ocr_6cdrj_1 ._btn-outline-warning_6cdrj_669{--ocr-btn-color: #ffc107;--ocr-btn-border-color: #ffc107;--ocr-btn-hover-color: #000;--ocr-btn-hover-bg: #ffc107;--ocr-btn-hover-border-color: #ffc107;--ocr-btn-focus-shadow-rgb: 255, 193, 7;--ocr-btn-active-color: #000;--ocr-btn-active-bg: #ffc107;--ocr-btn-active-border-color: #ffc107;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #ffc107;--ocr-btn-disabled-bg: transparent;--ocr-btn-disabled-border-color: #ffc107;--ocr-gradient: none}._one-click-ocr_6cdrj_1 ._btn-outline-danger_6cdrj_685{--ocr-btn-color: #dc3545;--ocr-btn-border-color: #dc3545;--ocr-btn-hover-color: #fff;--ocr-btn-hover-bg: #dc3545;--ocr-btn-hover-border-color: #dc3545;--ocr-btn-focus-shadow-rgb: 220, 53, 69;--ocr-btn-active-color: #fff;--ocr-btn-active-bg: #dc3545;--ocr-btn-active-border-color: #dc3545;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #dc3545;--ocr-btn-disabled-bg: transparent;--ocr-btn-disabled-border-color: #dc3545;--ocr-gradient: none}._one-click-ocr_6cdrj_1 ._btn-outline-light_6cdrj_701{--ocr-btn-color: #f8f9fa;--ocr-btn-border-color: #f8f9fa;--ocr-btn-hover-color: #000;--ocr-btn-hover-bg: #f8f9fa;--ocr-btn-hover-border-color: #f8f9fa;--ocr-btn-focus-shadow-rgb: 248, 249, 250;--ocr-btn-active-color: #000;--ocr-btn-active-bg: #f8f9fa;--ocr-btn-active-border-color: #f8f9fa;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #f8f9fa;--ocr-btn-disabled-bg: transparent;--ocr-btn-disabled-border-color: #f8f9fa;--ocr-gradient: none}._one-click-ocr_6cdrj_1 ._btn-outline-dark_6cdrj_717{--ocr-btn-color: #212529;--ocr-btn-border-color: #212529;--ocr-btn-hover-color: #fff;--ocr-btn-hover-bg: #212529;--ocr-btn-hover-border-color: #212529;--ocr-btn-focus-shadow-rgb: 33, 37, 41;--ocr-btn-active-color: #fff;--ocr-btn-active-bg: #212529;--ocr-btn-active-border-color: #212529;--ocr-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);--ocr-btn-disabled-color: #212529;--ocr-btn-disabled-bg: transparent;--ocr-btn-disabled-border-color: #212529;--ocr-gradient: none}._one-click-ocr_6cdrj_1 ._btn-link_6cdrj_733{--ocr-btn-font-weight: 400;--ocr-btn-color: var(--ocr-link-color);--ocr-btn-bg: transparent;--ocr-btn-border-color: transparent;--ocr-btn-hover-color: var(--ocr-link-hover-color);--ocr-btn-hover-border-color: transparent;--ocr-btn-active-color: var(--ocr-link-hover-color);--ocr-btn-active-border-color: transparent;--ocr-btn-disabled-color: #6c757d;--ocr-btn-disabled-border-color: transparent;--ocr-btn-box-shadow: 0 0 0 #000;--ocr-btn-focus-shadow-rgb: 49, 132, 253;text-decoration:underline}._one-click-ocr_6cdrj_1 ._btn-link_6cdrj_733:focus-visible{color:var(--ocr-btn-color)}._one-click-ocr_6cdrj_1 ._btn-link_6cdrj_733:hover{color:var(--ocr-btn-hover-color)}._one-click-ocr_6cdrj_1 ._btn-lg_6cdrj_754{--ocr-btn-padding-y: .5rem;--ocr-btn-padding-x: 1rem;--ocr-btn-font-size: 1.25rem;--ocr-btn-border-radius: var(--ocr-border-radius-lg)}._one-click-ocr_6cdrj_1 ._btn-sm_6cdrj_760{--ocr-btn-padding-y: .25rem;--ocr-btn-padding-x: .5rem;--ocr-btn-font-size: .875rem;--ocr-btn-border-radius: var(--ocr-border-radius-sm)}._one-click-ocr_6cdrj_1 ._btn-close_6cdrj_231{--ocr-btn-close-color: #000;--ocr-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");--ocr-btn-close-opacity: .5;--ocr-btn-close-hover-opacity: .75;--ocr-btn-close-focus-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);--ocr-btn-close-focus-opacity: 1;--ocr-btn-close-disabled-opacity: .25;--ocr-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);box-sizing:content-box;width:1em;height:1em;padding:.25em;color:var(--ocr-btn-close-color);background:transparent var(--ocr-btn-close-bg) center/1em auto no-repeat;border:0;border-radius:.375rem;opacity:var(--ocr-btn-close-opacity)}._one-click-ocr_6cdrj_1 ._btn-close_6cdrj_231:hover{color:var(--ocr-btn-close-color);text-decoration:none;opacity:var(--ocr-btn-close-hover-opacity)}._one-click-ocr_6cdrj_1 ._btn-close_6cdrj_231:focus{outline:0;box-shadow:var(--ocr-btn-close-focus-shadow);opacity:var(--ocr-btn-close-focus-opacity)}._one-click-ocr_6cdrj_1 ._btn-close_6cdrj_231:disabled,._one-click-ocr_6cdrj_1 ._btn-close_6cdrj_231._disabled_6cdrj_470{pointer-events:none;-webkit-user-select:none;user-select:none;opacity:var(--ocr-btn-close-disabled-opacity)}._one-click-ocr_6cdrj_1 ._btn-close-white_6cdrj_800{filter:var(--ocr-btn-close-white-filter)}._one-click-ocr_6cdrj_1 ._fade_6cdrj_160{transition:opacity .15s linear}@media (prefers-reduced-motion: reduce){._one-click-ocr_6cdrj_1 ._fade_6cdrj_160{transition:none}}._one-click-ocr_6cdrj_1 ._fade_6cdrj_160:not(._show_6cdrj_169){opacity:0}._one-click-ocr_6cdrj_1 ._collapse_6cdrj_814:not(._show_6cdrj_169){display:none}._one-click-ocr_6cdrj_1 ._collapsing_6cdrj_817{height:0;overflow:hidden;transition:height .35s ease}@media (prefers-reduced-motion: reduce){._one-click-ocr_6cdrj_1 ._collapsing_6cdrj_817{transition:none}}._one-click-ocr_6cdrj_1 ._collapsing_6cdrj_817._collapse-horizontal_6cdrj_827{width:0;height:auto;transition:width .35s ease}@media (prefers-reduced-motion: reduce){._one-click-ocr_6cdrj_1 ._collapsing_6cdrj_817._collapse-horizontal_6cdrj_827{transition:none}}._one-click-ocr_6cdrj_1 ._text-success_6cdrj_837{color:#198754!important}._one-click-ocr_6cdrj_1 ._text-danger_6cdrj_840{color:#dc3545!important}._one-click-ocr_6cdrj_1 ._modal_6cdrj_121{z-index:2147483642;background-color:#0006}._one-click-ocr_6cdrj_1 ._modal_6cdrj_121._show_6cdrj_169{display:block}._one-click-ocr_6cdrj_1 ._modal_6cdrj_121 ._modal-header_6cdrj_221{padding:.8em}._one-click-ocr_6cdrj_1 ._modal_6cdrj_121 ._btn-close_6cdrj_231{cursor:pointer!important}._one-click-ocr_6cdrj_1 ._modal_6cdrj_121 ._modal-title_6cdrj_235{padding:0;margin:0;font-size:14px}._one-click-ocr_6cdrj_1 ._modal_6cdrj_121 ._modal-title_6cdrj_235 ._logo_6cdrj_861{width:20px;height:20px;vertical-align:bottom;margin-right:5px;display:inline-block}._one-click-ocr_6cdrj_1 ._modal_6cdrj_121 ._modal-footer_6cdrj_244{padding:.5em}._one-click-ocr_6cdrj_1 ._result-content_6cdrj_871 textarea,._one-click-ocr_6cdrj_1 ._result-content_6cdrj_871 iframe{box-sizing:border-box;overflow:auto;resize:vertical;margin:0;padding:.2em .3em;display:block;width:100%;height:7em;font-size:12px;line-height:1.5;color:#495057;background-color:#fff;background-clip:padding-box;border:1px solid #ced4da;border-radius:6px;transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out}._one-click-ocr_6cdrj_1 ._image-view_6cdrj_889{text-align:center;max-width:100%;margin-top:1em}._one-click-ocr_6cdrj_1 ._image-view_6cdrj_889 img{max-width:100%}._one-click-ocr_6cdrj_1 ._el-notification_6cdrj_897{display:flex;width:330px;right:16px;padding:14px 26px 14px 13px;border-radius:8px;box-sizing:border-box;border:1px solid #ebeef5;position:fixed;background-color:#fff;box-shadow:0 2px 12px #0000001a;transition:opacity .3s,transform .3s,left .3s,right .3s,top .4s,bottom .3s;overflow:hidden}._one-click-ocr_6cdrj_1 ._el-notification_6cdrj_897 ._el-notification__group_6cdrj_911{margin-left:13px;margin-right:8px}._one-click-ocr_6cdrj_1 ._el-notification_6cdrj_897 ._el-notification__group_6cdrj_911 ._el-notification__title_6cdrj_915{font-weight:700;font-size:16px;color:#303133;margin:0;padding:0}._one-click-ocr_6cdrj_1 ._el-notification_6cdrj_897 ._el-notification__group_6cdrj_911 ._el-notification__content_6cdrj_922{font-size:14px;line-height:21px;margin:6px 0 0;color:#606266;text-align:justify}._one-click-ocr_6cdrj_1 ._el-notification_6cdrj_897 ._el-notification__group_6cdrj_911 ._el-notification__content_6cdrj_922 p{margin:0}._one-click-ocr_6cdrj_1 ._el-notification_6cdrj_897 ._el-notification__group_6cdrj_911 ._el-notification__closeBtn_6cdrj_932{position:absolute;top:18px;right:15px}._one-click-ocr_6cdrj_1 ._el-notification_6cdrj_897 ._el-notification__icon_6cdrj_937{width:24px;height:24px}._one-click-ocr_6cdrj_1 ._btn-close_6cdrj_231{width:1em!important;height:1em!important}._one-click-ocr_6cdrj_1 ._btn_6cdrj_231{background-image:none!important}
+</style><meta name="Reverso extension" content="3.6.298" id="Reverso_extension___elForCheckedInstallExtension"><style>undefined</style><style>
+            .flipX video::-webkit-media-text-track-display {
+                transform: matrix(-1, 0, 0, 1, 0, 0) !important;
+            }
+            .flipXY video::-webkit-media-text-track-display {
+                transform: matrix(-1, 0, 0, -1, 0, 0) !important;
+            }
+            .flipXYX video::-webkit-media-text-track-display {
+                transform: matrix(1, 0, 0, -1, 0, 0) !important;
+            }</style><style>
+            @keyframes blinkWarning {
+                0% { color: red; }
+                100% { color: white; }
+            }
+            @-webkit-keyframes blinkWarning {
+                0% { color: red; }
+                100% { color: white; }
+            }
+            .blinkWarning {
+                -webkit-animation: blinkWarning 1s linear infinite;
+                -moz-animation: blinkWarning 1s linear infinite;
+                animation: blinkWarning 1s linear infinite;
+            }</style><script src="chrome-extension://ddbjnfjiigjmcpcpkmhogomapikjbjdk/base.js"></script><link rel="preconnect" href="https://fonts.googleapis.com/" crossorigin="use-credentials"><link rel="preconnect" href="https://fonts.gstatic.com/"><link rel="stylesheet" href="./OperatorPanelFR37_files/css2"></head>
+<body class="vsc-initialized" style="zoom: 1.26;">
+
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://frmoderation.com/messages#" style="padding-top:0; padding-bottom:0;">
+                <img src="./OperatorPanelFR37_files/8.png" alt="">
+            </a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="https://frmoderation.com/">Accueil</a>
+                </li>
+                                    <li class="active">
+                        <a href="https://frmoderation.com/messages">Messages</a>
+                    </li>
+                                                                
+                
+                
+                                    <li>
+                        <a href="https://frmoderation.com/stats">Stats</a>
+                    </li>
+                
+                <li>
+                    <a href="https://frmoderation.com/logout">Quitter</a>
+                </li>
+
+                
+                <!--li>
+						<a href="https://frmoderation.com/notifications">Notifications                                </a>
+            </li-->
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://frmoderation.com/wall">
+                        <span style="color: white;margin-right: 20px;font-weight: bold; font-size: larger;">0,96 €</span><span class="glyphicon glyphicon-user"></span> Frederic D
+                        (19921
+                        )
+
+                        
+                        <div style="position:absolute; top:15px; right:-46px; color:white; padding-top:15px; font-size:10px; width:100px;">01:30:43</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="content container" style="margin-top:70px">
+
+    
+    
+    
+    <script type="text/javascript">
+      $(function(){
+                    $(document).on('show.bs.modal', '.modal', function (event) {
+            let zIndex = 1040 + (10 * $('.modal:visible').length);
+            $(this).css('z-index', zIndex);
+            setTimeout(function() {
+              $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+            }, 0);
+          });
+      })
+    </script>
+
+    
+<script type="text/javascript">
+$(function(){
+	$('textarea#message').focus();
+
+
+})
+</script>
+
+<style type="text/css">
+#accordion1 h4:after,
+#accordion2 h4:after,
+#accordion3 h4:after,
+#accordion4 h4:after{
+    font-family:'Glyphicons Halflings';
+    content:"\e114";
+    float: right;
+    color: grey;
+}
+#accordion1 h4.collapsed:after,
+#accordion2 h4.collapsed:after,
+#accordion3 h4.collapsed:after,
+#accordion4 h4.collapsed:after{
+    content:"\e080";
+}
+
+.attachment-pop {
+	cursor: pointer;
+}
+
+#message { height:100px; }
+
+form.has-error #message {
+	background-color: red;
+}
+
+#log_book_status_wrapper {
+	position: relative;
+	cursor: pointer;
+}
+
+#log_book_status_wrapper.check-status {
+	min-height: 30px;
+}
+
+#log_book_text { height:70px; }
+
+/*.log_book_item:not(:last-child) { border-bottom:0; }*/
+
+.log-book-container .panel-body { padding-top:0; padding-bottom:0; }
+.log-book-container .row { border-bottom:1px solid #eee; padding-bottom:10px; padding-top:10px; }
+
+#message_sender textarea { color:black;  }
+
+.loader-container {
+	position: absolute;
+	right: 10px;
+	top: 0;
+}
+.loader {
+	position: relative;
+	height: 20px;
+	width: 20px;
+	display: inline-block;
+	animation: around 5.4s infinite;
+}
+
+@keyframes around {
+	0% {
+		transform: rotate(0deg)
+	}
+	100% {
+		transform: rotate(360deg)
+	}
+}
+
+.loader::after, .loader::before {
+	content: "";
+	background: white;
+	position: absolute;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	border-width: 2px;
+	border-color: #333 #333 transparent transparent;
+	border-style: solid;
+	border-radius: 20px;
+	box-sizing: border-box;
+	top: 0;
+	left: 0;
+	animation: around 0.7s ease-in-out infinite;
+}
+
+.loader::after {
+	animation: around 0.7s ease-in-out 0.1s infinite;
+	background: transparent;
+}
+
+
+</style>
+
+<script type="text/javascript" src="./OperatorPanelFR37_files/lightbox.min.js.téléchargement"></script>
+<link rel="stylesheet" type="text/css" href="./OperatorPanelFR37_files/lightbox.css">
+
+
+<script type="text/javascript">
+$(function(){
+
+		
+	$('textarea#message').keyup(function() {
+		let total = parseInt(147),
+            remaining = total - this.value.length;
+		if (remaining > 0) {
+			$('#message_sender input[type=submit]').attr('disabled', 'disabled');
+			$('.charactercount').html('Faltan <strong>' + remaining + '</strong> caracteres');
+		} else {
+			$('#message_sender input[type=submit]').removeAttr('disabled')
+			$('.charactercount').html('<span class="glyphicon glyphicon-thumbs-up" style="font-size:20px"></span>');
+		}
+	});
+	
+	let timeoutCountDown = 0;
+	(function enableButtonCountDown(button) {
+		const buttonMessage = button.val();
+		let timeoutId = null;
+		timeoutCountDown++;
+
+		$(window).on("blur focus", function (e) {
+			let prevType = $(document.body).data("prevType");
+			if (prevType !== e.type) {   //  reduce double fire issues
+				switch (e.type) {
+					case "blur":
+						clearInterval(timeoutId);
+						timeoutCountDown++;
+						break;
+					case "focus":
+						if (timeoutCountDown) {
+							countDown();
+						}
+						break;
+				}
+			}
+			$(document.body).data("prevType", e.type);
+		});
+
+		function countDown() {
+			if (timeoutId) {
+				clearTimeout(timeoutId);
+			}
+			timeoutCountDown--;
+			if (timeoutCountDown > 0) {
+				button.val(buttonMessage + ' (' + timeoutCountDown + 's)');
+				timeoutId = setTimeout(countDown, 1000);
+			} else {
+				timeoutCountDown = 0;
+				button.val(buttonMessage);
+			}
+		}
+
+		countDown();
+	})($('#message_sender input[type=submit]'));
+
+	$('textarea#message').on('keyup', function(){
+		const form = $(this).closest('form');
+		const regex = /\[\s*and\s*\]|\(\s*and\s*\)/gi;
+		if (regex.test($(this).val())) {
+			form.addClass('has-error');
+		} else {
+			form.removeClass('has-error');
+		}
+	});
+
+	$('#message_sender form').on('submit', function(event) {
+		if (timeoutCountDown > 0) {
+			event.preventDefault();
+			alert('Please wait ' + timeoutCountDown + 's');
+			return false;
+		}
+		if ($(this).hasClass('has-error')) {
+			alert('Combination of ( and ) or [ and ] are not allowed');
+			event.preventDefault();
+			return false;
+		}
+		$('#message_sender input[type=submit]').attr('disabled', 'disabled');
+		return true;
+	})
+
+	$('.attachment_id').click(function(){
+		$('input[name=attachment_id]').val($(this).val());
+	});
+
+	const pastedTexts = [];
+
+	function countWords(str) {
+		let matches = str.match(/[\w\d\’\'-]+/gi);
+		return matches ? matches.length : 0;
+	}
+
+	$("textarea#message").bind("paste", function(e){
+		const text = e.originalEvent.clipboardData.getData('text');
+		if(countWords(text) > 5 && !pastedTexts.includes(text)) {
+			pastedTexts.push(text)
+		}
+	});
+
+	/**
+	 * Send the log of message via ajax request
+	 *
+	 * @returns {Promise<unknown>}
+	 */
+	function sendLog() {
+		return new Promise((resolve) => {
+			$.ajax({
+				type: "POST",
+				contentType: "application/json",
+				url: "https://frmoderation.com/log-messages",
+				data: JSON.stringify({
+					pasted_texts: pastedTexts,
+					changed_text: $("textarea#message").val()
+				}),
+				complete() {
+					resolve()
+				}
+			})
+		})
+	}
+
+
+	$('.log_book_post').submit(function(){
+		var category_id = $(this).find('select#log_book_category_id').val();
+		var text = $(this).find('#log_book_text').val();
+		var type = $(this).data('type');
+		var parent = $(this).parent().parent().parent();
+		let category = $('.logbook_' + category_id, parent).data('name');
+		let count = $('.logbook_' + category_id + ' .row', parent).length;
+		if (count >= 3) {
+			alert('Maximum 3' + ( ' ' + category || ''));
+			this.reset();
+			return false;
+		}
+
+		$.post('https://frmoderation.com/log-books/create', {
+			'conversation_id': $(this).data('conversationId'),
+			'user_id': $(this).data('userId'),
+			'category_id': category_id,
+			'text': text,
+			'type': type,
+						'message_id': 217408206,
+								}, function(data){
+
+			console.log(data);
+			parent.find('.logbook_' +  category_id + ' .panel-body').append('<div class="row"><div class="col-lg-10 log-book-text">' + text + '</div><div class="col-lg-2 delete-log-container"><button class="btn btn-xs btn-danger delete-log" data-id="' + data + '" data-type="' + type + '">X</button></div></div>');
+
+			update_log_book_state();
+		});
+
+		this.reset();
+
+		return false;
+	});
+
+	$(document).on('click', '.delete-log', function(){
+
+		var $this = $(this);
+
+		$.post('https://frmoderation.com/log-books/delete', {
+			'id': $(this).data('id'),
+			'text': $(this).parent().parent().find('.log-book-text').text(),
+			'type': $(this).data('type'),
+						'message_id': 217408206,
+								}, function(data){
+			$this.parent().parent().remove();
+			alert('Effacé');
+
+			update_log_book_state();
+		});
+	});
+
+	let logBookStatusWrapper = $('#log_book_status_wrapper');
+
+	function addLogBookStatusChange(wrapper, profile) {
+		if ('log_books_locked' in profile) {
+			if (profile.log_books_locked) {
+								$('#log_book_fake_wrapper').closest('.panel-body').remove();
+							} else {
+								$('#log_book_fake_wrapper').removeClass('hidden');
+			}
+		}
+	}
+	
+	if (logBookStatusWrapper.hasClass('check-status')) {
+		let loader = $('<div class="loader-container"><i class="loader"></i></div>');
+		loader.appendTo(logBookStatusWrapper);
+		$.post('https://frmoderation.com/log-books/status', {id: 23838238}).then(response => {
+			loader.remove();
+			logBookStatusWrapper.removeClass('check-status');
+			if (response.profile) {
+				addLogBookStatusChange(logBookStatusWrapper, response.profile)
+			}
+		})
+	}
+
+	function update_log_book_state()
+	{
+		$('.log_book_item').each(function()
+		{
+			if($(this).has('.row').size()){
+				$(this).show();
+			}
+			else{
+				$(this).hide();
+			}
+		});
+	}
+
+	update_log_book_state();
+
+	
+	$('#message_sender form').submit(function(event){
+		let length = parseInt(147);
+		let  $this = $(this);
+		if ($('textarea[name=message]').val().length < length) {
+			return false;
+		}
+
+		if(pastedTexts.length) {
+			event.preventDefault();
+			$this.unbind("submit");
+			sendLog().then(() => {
+				$this.submit();
+			})
+			return false;
+		}
+
+	});
+
+	$('textarea.comment_textarea').change(function(){
+
+		$('input[name=comment]').val($(this).val());
+
+	    $('.comment-button').css('color', $(this).val() ? 'blue' : 'silver');
+	})
+
+	
+	
+	$(".attachment-pop").on("click", function() {
+		$('#attachment-preview').attr('src', $(this).attr('src'));
+		$('#attachment-modal').modal('show');
+	});
+	$(".logbook-pop").on("click", function() {
+		$('#logbook-modal').modal('show');
+	});
+})
+</script>
+
+<div class="row">
+
+	<div class="col-lg-3" style="">
+
+				<div class="panel panel-default">
+		  <div class="panel-body" style="text-align:center; position:relative; padding:0;">
+		  	<small style="position:absolute; left:5px; top:5px;">6</small>
+		  	<small style="position:absolute; left:5px; bottom:5px;">14.00</small>
+		  	<strong style="font-size:26px; line-height:50px; color:green">0,96 €</strong>
+		  	<small style="position:absolute; right:5px; top:5px; color:red;">294</small>
+		  			  	<small style="position:absolute; right:5px; bottom:5px; color:green;">54,00 €</small>
+		  			  </div>
+		</div>
+		
+
+		
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		  	Operateur: C_LAléoparde (ID: 23838238)
+		  </div>
+		  <div class="panel-body">
+		  	<img src="./OperatorPanelFR37_files/b7a0a9a5204106645c3681244474c5bdd4d4c98d.jpg" class="img-responsive img-rounded">
+		  	<div style="float:left; padding-top:15px; width:100%">
+
+		  				  			<div class="col-lg-6" style="margin:0; padding:0 0 5px 0;">
+		  				<a href="./OperatorPanelFR37_files/31b944d8b237b8ea3d892d5e180c78c59a177d25.jpg" data-lightbox="C_LAléoparde">
+		  					<img src="./OperatorPanelFR37_files/31b944d8b237b8ea3d892d5e180c78c59a177d25.jpg" class="img-rounded" style="height:110px; width:110px;">
+		  				</a>
+		  			</div>
+		  				  			<div class="col-lg-6" style="margin:0; padding:0 0 5px 0;">
+		  				<a href="./OperatorPanelFR37_files/0c34cb1116e764831911e0dd74f5bbab3e887f85.jpg" data-lightbox="C_LAléoparde">
+		  					<img src="./OperatorPanelFR37_files/0c34cb1116e764831911e0dd74f5bbab3e887f85.jpg" class="img-rounded" style="height:110px; width:110px;">
+		  				</a>
+		  			</div>
+		  				  			<div class="col-lg-6" style="margin:0; padding:0 0 5px 0;">
+		  				<a href="./OperatorPanelFR37_files/b7a0a9a5204106645c3681244474c5bdd4d4c98d.jpg" data-lightbox="C_LAléoparde">
+		  					<img src="./OperatorPanelFR37_files/b7a0a9a5204106645c3681244474c5bdd4d4c98d.jpg" class="img-rounded" style="height:110px; width:110px;">
+		  				</a>
+		  			</div>
+		  		
+		  	</div>
+
+		  	<div class="row" style="padding-top:15px;">
+		  		<div class="col-lg-6">
+		  			<dl style="margin:0; padding:0;">
+						<dt>Nom</dt>
+						<dd>Cécile</dd>
+		  			</dl>
+		  		</div>
+		  		<div class="col-lg-6">
+		  			<dl style="margin:0; padding:0;">
+						<dt>Pseudo</dt>
+						<dd>C_LAléoparde</dd>
+		  			</dl>
+		  		</div>
+		  	</div>
+
+	  	  	<div class="row">
+	  	  		<div class="col-lg-6">
+	  	  			<dl style="margin:0; padding:0;">
+	  					<dt>Sexe</dt>
+	  					<dd>Femme</dd>
+	  	  			</dl>
+	  	  		</div>
+	  	  		<div class="col-lg-6">
+	  	  			<dl style="margin:0; padding:0;">
+	  					<dt>cherche</dt>
+	  					<dd>Homme</dd>
+	  	  			</dl>
+	  	  		</div>
+	  	  	</div>
+
+  	  	  	<div class="row">
+  	  	  		<div class="col-lg-6">
+  	  	  			<dl style="margin:0; padding:0;">
+  	  					<dt>Couleur des cheveux</dt>
+  	  					<dd>Roux</dd>
+  	  	  			</dl>
+  	  	  		</div>
+  	  	  		<div class="col-lg-6">
+  	  	  			<dl style="margin:0; padding:0;">
+  	  					<dt>Couleur des yeux</dt>
+  	  					<dd>Bleus</dd>
+  	  	  			</dl>
+  	  	  		</div>
+  	  	  	</div>
+
+  	  	  	<div class="row">
+  	  	  		<div class="col-lg-6">
+  	  	  			<dl style="margin:0; padding:0;">
+  	  					<dt>Silhouette</dt>
+  	  					<dd>Normale</dd>
+  	  	  			</dl>
+  	  	  		</div>
+  	  	  		<div class="col-lg-6">
+		  			<dl style="margin:0; padding:0;">
+						<dt>Age</dt>
+						<dd>
+							<span style="font-weight:bold; color:red">
+								43
+							</span>
+							<small>(24-04-1981)</small>
+						</dd>
+		  			</dl>
+  	  	  		</div>
+  	  	  	</div>
+
+  	  	  	  	<div class="row">
+  	  	  	  		<div class="col-lg-6">
+  	  	  	  			<dl style="margin:0; padding:0;">
+  	  	  					<dt>taille (cm)</dt>
+  	  	  					<dd>165</dd>
+  	  	  	  			</dl>
+  	  	  	  		</div>
+  	  	  	  		<div class="col-lg-6">
+  	  	  	  			<dl style="margin:0; padding:0;">
+  	  	  					<dt>Poids (kg)</dt>
+  	  	  					<dd>58</dd>
+  	  	  	  			</dl>
+  	  	  	  		</div>
+  	  	  	  	</div>
+
+  	  	  	<div class="row">
+  	  	  		<div class="col-lg-6">
+		  			<dl style="margin:0; padding:0;">
+						<dt>Fumeur</dt>
+						<dd>Oui</dd>
+		  			</dl>
+  	  	  		</div>
+  	  	  		<div class="col-lg-6" style="background-color: yellow;">
+  	  	  			<dl style="margin:0; padding:0;">
+  	  					<dt>Statut marital</dt>
+  	  					<dd>Divorcé</dd>
+  	  	  			</dl>
+  	  	  		</div>
+  	  	  	</div>
+
+  	  	  	<div class="row" style="padding-top:10px; padding-bottom:10px">
+  	  	  		<div class="col-lg-12">
+  	  	  			<dl style="margin:0; padding:0;">
+  	  					<dd style="color:lightgreen">
+  	  						France, Bretagne, RENNES
+  	  					</dd>
+  	  	  			</dl>
+  	  	  		</div>
+  	  	  	</div>
+
+  	  	  	<div class="row" style="padding-bottom: 10px; background-color: yellow;">
+  	  	  		<div class="col-lg-12">
+  	  	  			<dl style="margin:0; padding:0;">
+  	  					<dt>Prise de contact: <span style="font-weight:normal">23-12-2024</span></dt>
+  	  	  			</dl>
+  	  	  		</div>
+  	  	  	</div>
+
+	  	  	<hr style="margin:0; padding-top:10px">
+
+	  	  	<p>
+	  	  		<strong>Description</strong><br>
+	  	  		
+	  	  	</p>
+	  	</div>
+	</div>
+
+				<div class="panel panel-default" style="margin-bottom:0; border-bottom:0;">
+		  <div class="panel-heading">Information personelle du Profil fictif</div>
+		  <div class="panel-body">
+			<div id="log_book_status_wrapper" style="margin-bottom: 1rem">
+							</div>
+		  	<form method="post" id="log_book_fake_wrapper" class="log_book_post " data-type="fake" data-conversation-id="2258107699" data-user-id="23838238" data-operator-id="19921">
+		  	<input type="hidden" name="_token" value="vvgjUVxfdL8OIR0gSABVzSOf1JwxTW8C5LEVqmUW">
+		  	<div class="form-group"><label class="control-label" for="log_book_category_id">Categorie</label><select name="log_book_category_id" id="log_book_category_id" class="form-control" style="visibility: visible;"><option value="2">Prénom</option><option value="4">Localisation</option><option value="5">Travail</option><option value="6">Passions</option><option value="7">Preferences sexuelles</option><option value="8">habite avec/chez</option><option value="9">Relations</option><option value="10">Santé</option></select></div>
+		  	<div class="form-group"><label class="control-label" for="log_book_text">Information</label><textarea name="log_book_text" rows="10" cols="50" id="log_book_text" class="form-control"></textarea></div>
+		  	<button type="submit" class="btn btn btn-success col-lg-12">Ajouter information personnelle</button>
+		  	</form>
+		  </div>
+		</div>
+
+		<div class="panel-group" id="accordion1">
+
+					    <div class="panel panel-default log_book_item" id="panel1" style="margin: 0px; border-radius: 0px; display: none;">
+		        <div class="panel-heading">
+		             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#receiver_logbook_1" style="cursor:pointer">Données importantes</h4>
+		        </div>
+		        <div id="receiver_logbook_1" data-name="Données importantes" class="logbook_1 log-book-container panel-collapse collapse">
+		            <div class="panel-body">
+		            			            </div>
+		        </div>
+		    </div>
+		    		    <div class="panel panel-default log_book_item" id="panel2" style="margin:0; border-radius:0; 1">
+		        <div class="panel-heading">
+		             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#receiver_logbook_2" style="cursor:pointer">Prénom</h4>
+		        </div>
+		        <div id="receiver_logbook_2" data-name="Prénom" class="logbook_2 log-book-container panel-collapse collapse">
+		            <div class="panel-body">
+		            				            				            	<div class="row" title="Operator ID: 13341">
+			            		<div class="col-lg-10 log-book-text">Cécile</div>
+															</div>
+			            				            	<div class="row" title="Operator ID: 19596">
+			            		<div class="col-lg-10 log-book-text">J'ai 2 enfants, une fille de 15 ans et une autre de 12 ans.</div>
+															</div>
+			            				            	<div class="row" title="Operator ID: 16119">
+			            		<div class="col-lg-10 log-book-text">Le premier s'appelle Kevin et le dernier s'appelle Nathan.</div>
+															</div>
+			            			            			            </div>
+		        </div>
+		    </div>
+		    		    <div class="panel panel-default log_book_item" id="panel3" style="margin: 0px; border-radius: 0px; display: none;">
+		        <div class="panel-heading">
+		             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#receiver_logbook_3" style="cursor:pointer">Apparence</h4>
+		        </div>
+		        <div id="receiver_logbook_3" data-name="Apparence" class="logbook_3 log-book-container panel-collapse collapse">
+		            <div class="panel-body">
+		            			            </div>
+		        </div>
+		    </div>
+		    		    <div class="panel panel-default log_book_item" id="panel4" style="margin:0; border-radius:0; 1">
+		        <div class="panel-heading">
+		             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#receiver_logbook_4" style="cursor:pointer">Localisation</h4>
+		        </div>
+		        <div id="receiver_logbook_4" data-name="Localisation" class="logbook_4 log-book-container panel-collapse collapse">
+		            <div class="panel-body">
+		            				            				            	<div class="row" title="Operator ID: 11459">
+			            		<div class="col-lg-10 log-book-text">dans le centre</div>
+															</div>
+			            			            			            </div>
+		        </div>
+		    </div>
+		    		    <div class="panel panel-default log_book_item" id="panel5" style="margin:0; border-radius:0; 1">
+		        <div class="panel-heading">
+		             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#receiver_logbook_5" style="cursor:pointer">Travail</h4>
+		        </div>
+		        <div id="receiver_logbook_5" data-name="Travail" class="logbook_5 log-book-container panel-collapse collapse">
+		            <div class="panel-body">
+		            				            				            	<div class="row" title="Operator ID: 10586">
+			            		<div class="col-lg-10 log-book-text">assistante administrative</div>
+															</div>
+			            				            	<div class="row" title="Operator ID: 16119">
+			            		<div class="col-lg-10 log-book-text">Je suis dans une entreprise privée.</div>
+															</div>
+			            				            	<div class="row" title="Operator ID: 16119">
+			            		<div class="col-lg-10 log-book-text">Je travaille pour une entreprise de nettoyage</div>
+															</div>
+			            			            			            </div>
+		        </div>
+		    </div>
+		    		    <div class="panel panel-default log_book_item" id="panel6" style="margin:0; border-radius:0; 1">
+		        <div class="panel-heading">
+		             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#receiver_logbook_6" style="cursor:pointer">Passions</h4>
+		        </div>
+		        <div id="receiver_logbook_6" data-name="Passions" class="logbook_6 log-book-container panel-collapse collapse">
+		            <div class="panel-body">
+		            				            				            	<div class="row" title="Operator ID: 16119">
+			            		<div class="col-lg-10 log-book-text">J'aime faire du sport, regarder du sport, lire et faire la cuisine.</div>
+															</div>
+			            				            	<div class="row" title="Operator ID: 19211">
+			            		<div class="col-lg-10 log-book-text">je fais souvent des petites balades, mais pas forcément avec mes amis</div>
+															</div>
+			            				            	<div class="row" title="Operator ID: 19835">
+			            		<div class="col-lg-10 log-book-text">j'étais dans une équipe de volley</div>
+															</div>
+			            			            			            </div>
+		        </div>
+		    </div>
+		    		    <div class="panel panel-default log_book_item" id="panel7" style="margin:0; border-radius:0; 1">
+		        <div class="panel-heading">
+		             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#receiver_logbook_7" style="cursor:pointer">Preferences sexuelles</h4>
+		        </div>
+		        <div id="receiver_logbook_7" data-name="Preferences sexuelles" class="logbook_7 log-book-container panel-collapse collapse">
+		            <div class="panel-body">
+		            				            				            	<div class="row" title="Operator ID: 12786">
+			            		<div class="col-lg-10 log-book-text">j'ai toujours voulu faire l'amour sur un bateau ou dans un avion.</div>
+															</div>
+			            				            	<div class="row" title="Operator ID: 12141">
+			            		<div class="col-lg-10 log-book-text">J'aime la sodomie, mais je n'ai jamais essayé la double pénétration.</div>
+															</div>
+			            				            	<div class="row" title="Operator ID: 4221">
+			            		<div class="col-lg-10 log-book-text">Parties érogènes : Cou, seins</div>
+															</div>
+			            			            			            </div>
+		        </div>
+		    </div>
+		    		    <div class="panel panel-default log_book_item" id="panel8" style="margin:0; border-radius:0; 1">
+		        <div class="panel-heading">
+		             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#receiver_logbook_8" style="cursor:pointer">habite avec/chez</h4>
+		        </div>
+		        <div id="receiver_logbook_8" data-name="habite avec/chez" class="logbook_8 log-book-container panel-collapse collapse">
+		            <div class="panel-body">
+		            				            				            	<div class="row" title="Operator ID: 10413">
+			            		<div class="col-lg-10 log-book-text">je vis avec mes enfants</div>
+															</div>
+			            				            	<div class="row" title="Operator ID: 6343">
+			            		<div class="col-lg-10 log-book-text">Je vis dans une maison</div>
+															</div>
+			            				            	<div class="row" title="Operator ID: 19519">
+			            		<div class="col-lg-10 log-book-text">3 ans divorcé</div>
+															</div>
+			            			            			            </div>
+		        </div>
+		    </div>
+		    		    <div class="panel panel-default log_book_item" id="panel9" style="margin:0; border-radius:0; 1">
+		        <div class="panel-heading">
+		             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#receiver_logbook_9" style="cursor:pointer">Relations</h4>
+		        </div>
+		        <div id="receiver_logbook_9" data-name="Relations" class="logbook_9 log-book-container panel-collapse collapse">
+		            <div class="panel-body">
+		            				            				            	<div class="row" title="Operator ID: 13341">
+			            		<div class="col-lg-10 log-book-text">j'ai des enfants</div>
+															</div>
+			            				            	<div class="row" title="Operator ID: 10586">
+			            		<div class="col-lg-10 log-book-text">j'ai deux garçons de 17 et 13 ans</div>
+															</div>
+			            				            	<div class="row" title="Operator ID: 4200">
+			            		<div class="col-lg-10 log-book-text">Mon mari a eu une maîtresse, nous avons décidé de nous séparer</div>
+															</div>
+			            			            			            </div>
+		        </div>
+		    </div>
+		    		    <div class="panel panel-default log_book_item" id="panel10" style="margin: 0px; border-radius: 0px; display: none;">
+		        <div class="panel-heading">
+		             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#receiver_logbook_10" style="cursor:pointer">Santé</h4>
+		        </div>
+		        <div id="receiver_logbook_10" data-name="Santé" class="logbook_10 log-book-container panel-collapse collapse">
+		            <div class="panel-body">
+		            			            </div>
+		        </div>
+		    </div>
+		    		    <div class="panel panel-default log_book_item" id="panel11" style="margin: 0px; border-radius: 0px; display: none;">
+		        <div class="panel-heading">
+		             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#receiver_logbook_11" style="cursor:pointer">Otros</h4>
+		        </div>
+		        <div id="receiver_logbook_11" data-name="Otros" class="logbook_11 log-book-container panel-collapse collapse">
+		            <div class="panel-body">
+		            			            </div>
+		        </div>
+		    </div>
+		    
+		</div>
+
+		
+	<div class="panel panel-default">
+	<div class="panel-body">
+
+	  	  	<h4>Pour</h4>
+
+	  	  	<ul class="list-group">
+	  	  			  	  			<li class="list-group-item">Aventure amoureuse</li>
+	  	  			  	  			<li class="list-group-item">Tchater</li>
+	  	  			  	  			<li class="list-group-item">Relation libre</li>
+	  	  			  	  			<li class="list-group-item">Sortir dîner</li>
+	  	  			  	  			<li class="list-group-item">Sortir</li>
+	  	  			  	  	</ul>
+
+	  	  	<hr style="margin:0; padding-top:10px">
+
+	  	  	<h4>Tes préférences</h4>
+
+	  	  	<ul class="list-group">
+	  	  			  	  			<li class="list-group-item">Heterosexuel</li>
+	  	  			  	  			<li class="list-group-item">Déguisements / Jeux</li>
+	  	  			  	  	</ul>
+
+	  	  	<hr style="margin:0; padding-top:10px">
+
+	  	  	<h4>Ton caractère</h4>
+
+	  	  	<ul class="list-group">
+	  	  			  	  			<li class="list-group-item">Ouvert</li>
+	  	  			  	  			<li class="list-group-item">Du caractère</li>
+	  	  			  	  			<li class="list-group-item">Dominant</li>
+	  	  			  	  			<li class="list-group-item">Sûr de moi</li>
+	  	  			  	  	</ul>
+
+		  </div>
+		</div>
+	</div>
+
+	<div class="col-lg-6" style="">
+
+
+		
+							<div class="alert" style="background-color:yellow;color:black">
+				<span>
+				<i class="glyphicon glyphicon-envelope"></i>
+				129 messages disponibles</span>
+				<span class="pull-right">
+
+					<i class="glyphicon glyphicon-user"></i>
+					<span title="Nombre d&#39;utilisateurs contactés dans les 10 derniers messages envoyés.">198</span>
+					/
+					<span title="Utilisateurs contactés / Messages envoyés">1892</span>
+
+					<span title="Packs achetés">
+					<i class="glyphicon glyphicon-shopping-cart" style="text-indent: 10px"></i>
+					5+
+					</span>
+				</span>
+			</div>
+				
+		
+		<div class="panel panel-default">
+		  <div class="panel-heading pull-left" style="width:100%">Conversation (ID: 2258107699)
+		  			  			  	<!-- <a class="btn btn-xs btn-warning pull-right" id="skip" data-toggle="modal" data-target="#return">Retourner au système</a> -->
+		  	
+		  	
+		  </div>
+		  <div class="panel-body" id="message_sender">
+
+		  	
+			  				  					  			<form method="POST" action="https://frmoderation.com/messages/send_message"><input type="hidden" name="_token" value="vvgjUVxfdL8OIR0gSABVzSOf1JwxTW8C5LEVqmUW">
+			  		
+			  	<input type="hidden" name="message_id" value="217408206">
+
+
+			  				  		<input type="hidden" name="attachment_id">
+			  				  	<div class="form-group"><label class="control-label" for="message"></label><textarea name="message" rows="10" cols="50" id="message" class="form-control" style="width: 610px; height: 160px; position: relative; left: -43px; top: -60px; margin-bottom: -70px;"></textarea></div>
+			  	<input type="hidden" name="delay" value="1">
+			  	<input type="hidden" name="comment">
+			  	<input type="hidden" name="original">
+
+				<div class="row">
+					<div class="col-xs-4">
+			  				  	<input type="submit" value="Envoyer" class="btn btn-success" disabled="disabled" tabindex="0">
+			  						</div>
+					<div class="col-xs-4">
+																	</div>
+					<div class="col-xs-4">
+			  				  		<a class="btn btn-danger pull-right delete-are-you-sure" id="skip" href="https://frmoderation.com/messages/delete" style="margin-left:15px">Effacer</a>
+			  	
+			  	
+			  	
+			  				  	<div class="pull-right charactercount" style="padding-top:6px">Manque:longueur caractère</div>
+			  						</div>
+				</div>
+			  	</form>
+
+		  	
+		  	
+		  	<hr>
+
+		  	<div class="col-lg-12 chat_history_container" style="max-height: 900px; overflow: hidden scroll; font-size: 14px;">
+
+		  	<dl class="chat_history">
+		  		
+		  		
+				<dt style="" title="
+">u-and-me
+    			le <span style="color:gray">24-12-2024</span>
+    			à <span style="color:gray">01:07</span>
+				</dt>
+		  		<dd style="border-bottom:1px solid silver; padding-bottom:5px; margin-bottom:10px;
+		  				  		
+		  				  		">
+		  			Bonsoir .. oui , je vais très bien  - Discuter un peu ? et parler de toi .. est-ce bien utile : j'en sais déjà assez sur toi ! Je ne m'attarde pas sur une femme telle que toi.. j'ai déja lu ta prose condescendante - Il y a le choix ici , des femmes fiables et qui pratiquent au lieu de blablater ..Bonne recherche
+		  					  		</dd>
+		  		
+		  		
+				<dt style="color:green;" title="
+">C_LAléoparde
+    			le <span style="color:gray">23-12-2024</span>
+    			à <span style="color:gray">09:20</span>
+				</dt>
+		  		<dd style="border-bottom:1px solid silver; padding-bottom:5px; margin-bottom:10px;
+		  				  		color:green;
+		  				  		">
+		  			Bonjour, ça va ? On peut discuter un peu ? je suppose que le mieux c'est de commencer à parler de nous, non ?
+		  					  		</dd>
+		  				  	</dl>
+		  	</div>
+		  </div>
+		</div>
+
+						<div class="panel-group" id="accordion3">
+		    <div class="panel panel-default" id="panel-add-files">
+		        <div class="panel-heading">
+		             <h4 class="panel-title" data-toggle="collapse" data-target="#collapseAddFiles" style="cursor:pointer">Ajouter fichier (2)</h4>
+		        </div>
+		        <div id="collapseAddFiles" class="panel-collapse collapse in" style="">
+		            <div class="panel-body">
+		            	<div class="col-lg-3" style="position:relative; margin-bottom:15px;">
+		            		<input type="radio" class="attachment_id" name="attachment" value="" style="position:absolute; right:20px; top:10px;" checked="checked">
+		            		<div class="img-rounded" style="line-height:110px; height:110px; width:110px; border:1px solid; text-align:center; font-weight:bold;">Rien dájouté</div>
+		            	</div>
+		            			            		<div class="col-lg-3" style="position:relative; margin-bottom:15px;">
+		            					            				<input type="radio" class="attachment_id" name="attachment" value="19874703" style="position:absolute; right:20px; top:10px;">
+		            			
+		            			<img src="./OperatorPanelFR37_files/14f9a06ea70e8c76ed8ad09e1934ce9bfca2f6d7.jpg" class="img-rounded" width="110" height="110">
+		            		</div>
+		            			            		<div class="col-lg-3" style="position:relative; margin-bottom:15px;">
+		            					            				<input type="radio" class="attachment_id" name="attachment" value="19874704" style="position:absolute; right:20px; top:10px;">
+		            			
+		            			<img src="./OperatorPanelFR37_files/4dcc0ec9cf4248e30df861aa12884aa3eb3274af.jpg" class="img-rounded" width="110" height="110">
+		            		</div>
+		            			            </div>
+		        </div>
+		    </div>
+		</div>
+		
+	</div>
+
+		<div class="col-lg-3" style="">
+
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			  	Client: u-and-me (ID: 41059643)
+			  				  </div>
+		  		  <div class="panel-body">
+		  		  	<img src="./OperatorPanelFR37_files/e8263b706ba29a136b05ea805708be2828872f2f.jpg" class="img-responsive img-rounded">
+
+		  		  	<div style="padding-top:15px; float:left;">
+		  		  			  		  		<div class="col-lg-6" style="margin:0; padding:0 0 5px 0;">
+		  		  			<a href="./OperatorPanelFR37_files/d9888796137cdae647fc16692d24371347412a34.jpg" data-lightbox="u-and-me">
+		  		  				<img src="./OperatorPanelFR37_files/d9888796137cdae647fc16692d24371347412a34.jpg" class="img-rounded" style="height:110px; width:110px;">
+		  		  			</a>
+		  		  		</div>
+		  		  			  		  		<div class="col-lg-6" style="margin:0; padding:0 0 5px 0;">
+		  		  			<a href="./OperatorPanelFR37_files/5313c831e9ae87cfd4d7637c088efb544a504f3a.jpg" data-lightbox="u-and-me">
+		  		  				<img src="./OperatorPanelFR37_files/5313c831e9ae87cfd4d7637c088efb544a504f3a.jpg" class="img-rounded" style="height:110px; width:110px;">
+		  		  			</a>
+		  		  		</div>
+		  		  			  		  		<div class="col-lg-6" style="margin:0; padding:0 0 5px 0;">
+		  		  			<a href="./OperatorPanelFR37_files/e8263b706ba29a136b05ea805708be2828872f2f.jpg" data-lightbox="u-and-me">
+		  		  				<img src="./OperatorPanelFR37_files/e8263b706ba29a136b05ea805708be2828872f2f.jpg" class="img-rounded" style="height:110px; width:110px;">
+		  		  			</a>
+		  		  		</div>
+		  		  			  		  	</div>
+
+		  		  	<div class="row" style="padding-top:15px;">
+		  		  		<div class="col-lg-6">
+		  		  			<dl style="margin:0; padding:0;">
+		  						<dt>Nom</dt>
+		  						<dd>uandme</dd>
+		  		  			</dl>
+		  		  		</div>
+		  		  		<div class="col-lg-6">
+		  		  			<dl style="margin:0; padding:0;">
+		  						<dt>Pseudo</dt>
+		  						<dd>u-and-me</dd>
+		  		  			</dl>
+		  		  		</div>
+		  		  	</div>
+
+		  	  	  	<div class="row">
+		  	  	  		<div class="col-lg-6">
+		  	  	  			<dl style="margin:0; padding:0;">
+		  	  					<dt>Sexe</dt>
+		  	  					<dd>Homme</dd>
+		  	  	  			</dl>
+		  	  	  		</div>
+		  	  	  		<div class="col-lg-6">
+		  	  	  			<dl style="margin:0; padding:0;">
+		  	  					<dt>cherche</dt>
+		  	  					<dd>Femme</dd>
+		  	  	  			</dl>
+		  	  	  		</div>
+		  	  	  	</div>
+
+		    	  	  	<div class="row">
+		    	  	  		<div class="col-lg-6">
+		    	  	  			<dl style="margin:0; padding:0;">
+		    	  					<dt>Couleur des cheveux</dt>
+		    	  					<dd>Châtains</dd>
+		    	  	  			</dl>
+		    	  	  		</div>
+		    	  	  		<div class="col-lg-6">
+		    	  	  			<dl style="margin:0; padding:0;">
+		    	  					<dt>Couleur des yeux</dt>
+		    	  					<dd>Bleus</dd>
+		    	  	  			</dl>
+		    	  	  		</div>
+		    	  	  	</div>
+
+		    	  	  	<div class="row">
+		    	  	  		<div class="col-lg-6">
+		    	  	  			<dl style="margin:0; padding:0;">
+		    	  					<dt>Silhouette</dt>
+		    	  					<dd>Quelques kilos en trop</dd>
+		    	  	  			</dl>
+		    	  	  		</div>
+		    	  	  		<div class="col-lg-6">
+		  		  			<dl style="margin:0; padding:0;">
+		  						<dt>Age</dt>
+		  						<dd>
+		  							<span style="font-weight:bold; color:red">
+		  								64
+		  							</span>
+
+		  							<!--small>(21-07-1960)</small-->
+		  						</dd>
+		  		  			</dl>
+		    	  	  		</div>
+		    	  	  	</div>
+
+		    	  	  	  	<div class="row">
+		    	  	  	  		<div class="col-lg-6">
+		    	  	  	  			<dl style="margin:0; padding:0;">
+		    	  	  					<dt>taille (cm)</dt>
+		    	  	  					<dd>174</dd>
+		    	  	  	  			</dl>
+		    	  	  	  		</div>
+		    	  	  	  		<div class="col-lg-6">
+		    	  	  	  			<dl style="margin:0; padding:0;">
+		    	  	  					<dt>Poids (kg)</dt>
+		    	  	  					<dd>88</dd>
+		    	  	  	  			</dl>
+		    	  	  	  		</div>
+		    	  	  	  	</div>
+
+		    	  	  	<div class="row">
+		    	  	  		<div class="col-lg-6">
+		  		  			<dl style="margin:0; padding:0;">
+		  						<dt>Fumeur</dt>
+		  						<dd></dd>
+		  		  			</dl>
+		    	  	  		</div>
+		    	  	  		<div class="col-lg-6" style="background-color: yellow;">
+		    	  	  			<dl style="margin:0; padding:0;">
+		    	  	  				<dt>Statut marital</dt>
+		    	  	  				<dd>Célibataire</dd>
+		    	  	  			</dl>
+		    	  	  		</div>
+		    	  	  	</div>
+
+		    	  	  	<div class="row" style="padding-bottom:10px">
+		    	  	  		<div class="col-lg-6">
+		    	  	  			<dl style="margin:0; padding:0;">
+		    	  					<dt>Visites</dt>
+		    	  					<dd>11416</dd>
+		    	  	  			</dl>
+		    	  	  		</div>
+		    	  	  	</div>
+
+		    	  	  	<div class="row" style="padding-bottom:10px">
+		    	  	  		<div class="col-lg-12">
+		    	  	  			<dl style="margin:0; padding:0; ">
+		    	  					<dd style="color:lightgreen">
+		    	  						France, Bretagne, RENNES
+		    	  					</dd>
+		    	  	  			</dl>
+		    	  	  		</div>
+		    	  	  	</div>
+
+		    	  	  	<div class="row" style="padding-bottom: 10px; background-color: yellow;">
+		    	  	  		<div class="col-lg-12">
+		    	  	  			<dl style="margin:0; padding:0;">
+		    	  					<dt>Prise de contact: <span style="font-weight:normal">23-12-2024</span></dt>
+		    	  	  			</dl>
+		    	  	  		</div>
+		    	  	  	</div>
+
+		  	  	  	<hr style="margin:0; padding-top:10px">
+
+		  	  	  	<p>
+		  	  	  		<strong>Description</strong><br>
+		  	  	  		
+		  	  	  	</p>
+
+		  	  	</div>
+		  	</div>
+
+						<div class="panel panel-default" style="margin-bottom:0; border-bottom:0;">
+			  <div class="panel-heading">Information personnelle du client</div>
+			  <div class="panel-body">
+			  	<form method="post" class="log_book_post" data-type="real" data-conversation-id="2258107699" data-user-id="41059643" data-operator-id="19921">
+				<input type="hidden" name="_token" value="vvgjUVxfdL8OIR0gSABVzSOf1JwxTW8C5LEVqmUW">
+			  	<div class="form-group"><label class="control-label" for="log_book_category_id">Categorie</label><select name="log_book_category_id" id="log_book_category_id" class="form-control" style="visibility: visible;"><option value="2">Prénom</option><option value="4">Localisation</option><option value="5">Travail</option><option value="6">Passions</option><option value="7">Preferences sexuelles</option><option value="8">habite avec/chez</option><option value="9">Relations</option><option value="10">Santé</option></select></div>
+			  	<div class="form-group"><label class="control-label" for="log_book_text">Information</label><textarea name="log_book_text" rows="10" cols="50" id="log_book_text" class="form-control"></textarea></div>
+			  	<button type="submit" class="btn btn btn-success col-lg-12">Ajouter information personnelle</button>
+			  	</form>
+			  </div>
+			</div>
+
+			<div class="panel-group" id="accordion4">
+
+							    <div class="panel panel-default log_book_item" id="panel-1" style="margin: 0px; border-radius: 0px; display: none;">
+			        <div class="panel-heading">
+			             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#sender_logbook_1" style="cursor:pointer">Données importantes</h4>
+			        </div>
+			        <div id="sender_logbook_1" data-name="Données importantes" class="logbook_1 log-book-container panel-collapse collapse">
+			            <div class="panel-body">
+			            				            </div>
+			        </div>
+			    </div>
+			    			    <div class="panel panel-default log_book_item" id="panel-2" style="margin: 0px; border-radius: 0px; display: none;">
+			        <div class="panel-heading">
+			             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#sender_logbook_2" style="cursor:pointer">Prénom</h4>
+			        </div>
+			        <div id="sender_logbook_2" data-name="Prénom" class="logbook_2 log-book-container panel-collapse collapse">
+			            <div class="panel-body">
+			            				            </div>
+			        </div>
+			    </div>
+			    			    <div class="panel panel-default log_book_item" id="panel-3" style="margin: 0px; border-radius: 0px; display: none;">
+			        <div class="panel-heading">
+			             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#sender_logbook_3" style="cursor:pointer">Apparence</h4>
+			        </div>
+			        <div id="sender_logbook_3" data-name="Apparence" class="logbook_3 log-book-container panel-collapse collapse">
+			            <div class="panel-body">
+			            				            </div>
+			        </div>
+			    </div>
+			    			    <div class="panel panel-default log_book_item" id="panel-4" style="margin: 0px; border-radius: 0px; display: none;">
+			        <div class="panel-heading">
+			             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#sender_logbook_4" style="cursor:pointer">Localisation</h4>
+			        </div>
+			        <div id="sender_logbook_4" data-name="Localisation" class="logbook_4 log-book-container panel-collapse collapse">
+			            <div class="panel-body">
+			            				            </div>
+			        </div>
+			    </div>
+			    			    <div class="panel panel-default log_book_item" id="panel-5" style="margin: 0px; border-radius: 0px; display: none;">
+			        <div class="panel-heading">
+			             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#sender_logbook_5" style="cursor:pointer">Travail</h4>
+			        </div>
+			        <div id="sender_logbook_5" data-name="Travail" class="logbook_5 log-book-container panel-collapse collapse">
+			            <div class="panel-body">
+			            				            </div>
+			        </div>
+			    </div>
+			    			    <div class="panel panel-default log_book_item" id="panel-6" style="margin: 0px; border-radius: 0px; display: none;">
+			        <div class="panel-heading">
+			             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#sender_logbook_6" style="cursor:pointer">Passions</h4>
+			        </div>
+			        <div id="sender_logbook_6" data-name="Passions" class="logbook_6 log-book-container panel-collapse collapse">
+			            <div class="panel-body">
+			            				            </div>
+			        </div>
+			    </div>
+			    			    <div class="panel panel-default log_book_item" id="panel-7" style="margin: 0px; border-radius: 0px; display: none;">
+			        <div class="panel-heading">
+			             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#sender_logbook_7" style="cursor:pointer">Preferences sexuelles</h4>
+			        </div>
+			        <div id="sender_logbook_7" data-name="Preferences sexuelles" class="logbook_7 log-book-container panel-collapse collapse">
+			            <div class="panel-body">
+			            				            </div>
+			        </div>
+			    </div>
+			    			    <div class="panel panel-default log_book_item" id="panel-8" style="margin: 0px; border-radius: 0px; display: none;">
+			        <div class="panel-heading">
+			             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#sender_logbook_8" style="cursor:pointer">habite avec/chez</h4>
+			        </div>
+			        <div id="sender_logbook_8" data-name="habite avec/chez" class="logbook_8 log-book-container panel-collapse collapse">
+			            <div class="panel-body">
+			            				            </div>
+			        </div>
+			    </div>
+			    			    <div class="panel panel-default log_book_item" id="panel-9" style="margin: 0px; border-radius: 0px; display: none;">
+			        <div class="panel-heading">
+			             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#sender_logbook_9" style="cursor:pointer">Relations</h4>
+			        </div>
+			        <div id="sender_logbook_9" data-name="Relations" class="logbook_9 log-book-container panel-collapse collapse">
+			            <div class="panel-body">
+			            				            </div>
+			        </div>
+			    </div>
+			    			    <div class="panel panel-default log_book_item" id="panel-10" style="margin: 0px; border-radius: 0px; display: none;">
+			        <div class="panel-heading">
+			             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#sender_logbook_10" style="cursor:pointer">Santé</h4>
+			        </div>
+			        <div id="sender_logbook_10" data-name="Santé" class="logbook_10 log-book-container panel-collapse collapse">
+			            <div class="panel-body">
+			            				            </div>
+			        </div>
+			    </div>
+			    			    <div class="panel panel-default log_book_item" id="panel-11" style="margin: 0px; border-radius: 0px; display: none;">
+			        <div class="panel-heading">
+			             <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#sender_logbook_11" style="cursor:pointer">Otros</h4>
+			        </div>
+			        <div id="sender_logbook_11" data-name="Otros" class="logbook_11 log-book-container panel-collapse collapse">
+			            <div class="panel-body">
+			            				            </div>
+			        </div>
+			    </div>
+			    
+			</div>
+			
+			<div class="panel panel-default">
+				<div class="panel-body">
+
+		  	  	  	<h4>Pour</h4>
+
+		  	  	  	<ul class="list-group">
+		  	  	  				  	  	  			<li class="list-group-item">Aventure amoureuse</li>
+		  	  	  				  	  	  			<li class="list-group-item">Rendez-vous sans tabous</li>
+		  	  	  				  	  	  			<li class="list-group-item">Relation libre</li>
+		  	  	  				  	  	  			<li class="list-group-item">Juste une nuit</li>
+		  	  	  				  	  	  	</ul>
+
+		  	  	  	<hr style="margin:0; padding-top:10px">
+
+		  	  	  	<h4>Tes préférences</h4>
+
+		  	  	  	<ul class="list-group">
+		  	  	  				  	  	  			<li class="list-group-item">Cybersexe</li>
+		  	  	  				  	  	  			<li class="list-group-item">Rendez-vous en direct / réel</li>
+		  	  	  				  	  	  			<li class="list-group-item">En groupe/Trio</li>
+		  	  	  				  	  	  	</ul>
+
+		  	  	  	<hr style="margin:0; padding-top:10px">
+
+		  	  	  	<h4>Ton caractère</h4>
+
+		  	  	  	<ul class="list-group">
+		  	  	  				  	  	  			<li class="list-group-item">Ouvert</li>
+		  	  	  				  	  	  			<li class="list-group-item">Tendre</li>
+		  	  	  				  	  	  			<li class="list-group-item">Curieux</li>
+		  	  	  				  	  	  			<li class="list-group-item">Dominant</li>
+		  	  	  				  	  	  			<li class="list-group-item">Fougueux</li>
+		  	  	  				  	  	  			<li class="list-group-item">Romantique</li>
+		  	  	  				  	  	  			<li class="list-group-item">Sensible</li>
+		  	  	  				  	  	  			<li class="list-group-item">Avec du sens de l´humour</li>
+		  	  	  				  	  	  	</ul>
+		  		  </div>
+			</div>
+
+		</div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="return" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="myModalLabel">Motif du remboursement</h4>
+      </div>
+      <form method="POST" action="https://frmoderation.com/messages/skip" accept-charset="UTF-8"><input name="_token" type="hidden" value="vvgjUVxfdL8OIR0gSABVzSOf1JwxTW8C5LEVqmUW">
+      <div class="modal-body">
+        <textarea class="form-control comment_textarea" style="height:75px" name="reason" cols="50" rows="10"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Retourner au système</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- End modal -->
+
+<!-- Creates the bootstrap modal where the image will appear -->
+<div class="modal fade" id="attachment-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			</div>
+			<div class="modal-body">
+				<img src="https://frmoderation.com/messages" id="attachment-preview" style="max-width: 100%; max-height: 100%">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+</div>
+<div class="footer">
+    <div class="footer-content">
+        <div class="footer-address">
+            Centanni Inc,
+            Trust Company Complex, Ajeltake Road, Ajeltake Island,
+            Majuro,
+            MH96960,
+            Marshall Islands
+        </div>
+    </div>
+</div>
+<div id="lightboxOverlay" class="lightboxOverlay" style="display: none; width: 1263px; height: 4023px;"></div><div id="lightbox" class="lightbox" style="display: none; top: 356.667px; left: 0px;"><div class="lb-outerContainer" style="width: 640px; height: 583px;"><div class="lb-container"><img class="lb-image" src="./OperatorPanelFR37_files/0c34cb1116e764831911e0dd74f5bbab3e887f85.jpg" style="display: block; width: 632px; height: 575px;"><div class="lb-nav" style="display: block;"><a class="lb-prev" href="https://frmoderation.com/messages" style="display: block;"></a><a class="lb-next" href="https://frmoderation.com/messages" style="display: block;"></a></div><div class="lb-loader" style="display: none;"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer" style="display: block; width: 640px;"><div class="lb-data"><div class="lb-details"><span class="lb-caption" style="display: none;"></span><span class="lb-number" style="display: none;"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div><div id="wc_task_count_div" class="wc_div_position_north wc_div_theme_dark" style="display: block;"><div id="wc_inner_div"><span class="wc_row_label">Words</span><span id="wc_word_count" class="wc_row_value">0</span><span class="wc_row_label">Characters</span><span id="wc_char_count" class="wc_row_value">0</span><span class="wc_row_label">Reading time</span><span id="wc_reading_time" class="wc_row_value">0 minutes</span></div></div><script src="data:text/javascript;base64,Ly8gU2NyaXB0IHBvdXIgYWdyYW5kaXIgbGEgYm/udGUgZGUgdGV4dGUNCmxldCBib3ggPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjbWVzc2FnZScpOw0KYm94LnN0eWxlLndpZHRoID0gJzYxMHB4JzsgDQpib3guc3R5bGUuaGVpZ2h0ID0gJzE2MHB4JzsNCmJveC5zdHlsZS5wb3NpdGlvbiA9ICdyZWxhdGl2ZSc7IC8vIENlbGEgcG91cnJhaXQgZOlq4CDqdHJlIGTpZmluaSwgbWFpcyBvbiBsZSByZWZhaXQgYXUgY2FzIG/5Lg0KYm94LnN0eWxlLmxlZnQgPSAnLTQzcHgnOyAvLyBE6XBsYWNlIGxhIGJv7nRlIGRlIDUwcHggdmVycyBsYSBnYXVjaGUuDQpib3guc3R5bGUudG9wID0gJy02MHB4JzsgLy8gROlwbGFjZSBsYSBib+50ZSBkZSA1MHB4IHZlcnMgbGUgaGF1dC4NCmJveC5zdHlsZS5tYXJnaW5Cb3R0b20gPSAnLTcwcHgnOyAvLyBS6WR1aXQgbCdlc3BhY2UgZW4gZGVzc291cyBkZSBsYSBib+50ZSBkZSB0ZXh0ZQ0KDQovLyBUcm91dmVyIGxhIHNlY3Rpb24gcXVpIGNvbnRpZW50IOAgbGEgZm9pcyBsYSBib+50ZSBkZSB0ZXh0ZSBldCBsZXMgYm91dG9ucyAiRW52b3llciIgZXQgIkVmZmFjZXIiDQp2YXIgc2VjdGlvbkFmaXhlciA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyNtZXNzYWdlX3NlbmRlciA+IGZvcm0nKTsNCg0KLy8gT2J0ZW5pciBsZXMgY29vcmRvbm7pZXMgZXQgZGltZW5zaW9ucyBhY3R1ZWxsZXMgZGUgbGEgc2VjdGlvbiDgIGZpeGVyDQp2YXIgcmVjdFNlY3Rpb25BZml4ZXIgPSBzZWN0aW9uQWZpeGVyLmdldEJvdW5kaW5nQ2xpZW50UmVjdCgpOw0KDQovLyBUcm91dmVyIGwn6WzpbWVudCBwYXJlbnQgZGUgbGEgc2VjdGlvbiDgIGZpeGVyIChwb3VyIHBvdXZvaXIgbGEgcmVtZXR0cmUgcGx1cyB0YXJkKQ0KdmFyIHBhcmVudE9yaWdpbmFsID0gc2VjdGlvbkFmaXhlci5wYXJlbnRFbGVtZW50Ow0KDQovLyBDcullciB1biBub3V2ZWF1IGNvbnRlbmV1ciA8ZGl2Pg0KdmFyIG5vdXZlYXVDb250ZW5ldXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsNCm5vdXZlYXVDb250ZW5ldXIuaWQgPSAnbm91dmVhdS1jb250ZW5ldXInOw0KDQovLyBDcullciB1biDpbOltZW50IGVzcGFjZSBy6XNlcnbpIGF2ZWMgbGEgbeptZSBoYXV0ZXVyIHF1ZSBsYSBzZWN0aW9uIOAgZml4ZXINCnZhciBlc3BhY2VSZXNlcnZlID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7DQplc3BhY2VSZXNlcnZlLnN0eWxlLmhlaWdodCA9IHJlY3RTZWN0aW9uQWZpeGVyLmhlaWdodCArICdweCc7DQoNCi8vIEFwcGxpcXVlciBkZXMgc3R5bGVzIENTUyBhdSBub3V2ZWF1IGNvbnRlbmV1cg0Kbm91dmVhdUNvbnRlbmV1ci5zdHlsZS5wb3NpdGlvbiA9ICdmaXhlZCc7DQpub3V2ZWF1Q29udGVuZXVyLnN0eWxlLnRvcCA9IHJlY3RTZWN0aW9uQWZpeGVyLnRvcCArICdweCc7DQpub3V2ZWF1Q29udGVuZXVyLnN0eWxlLmxlZnQgPSByZWN0U2VjdGlvbkFmaXhlci5sZWZ0ICsgJ3B4JzsNCm5vdXZlYXVDb250ZW5ldXIuc3R5bGUud2lkdGggPSByZWN0U2VjdGlvbkFmaXhlci53aWR0aCArICdweCc7DQpub3V2ZWF1Q29udGVuZXVyLnN0eWxlLnpJbmRleCA9ICcxMDAwJzsNCm5vdXZlYXVDb250ZW5ldXIuc3R5bGUuYmFja2dyb3VuZENvbG9yID0gJyNmOGY5ZmEnOw0Kbm91dmVhdUNvbnRlbmV1ci5zdHlsZS5wYWRkaW5nID0gJzEwcHgnOw0Kbm91dmVhdUNvbnRlbmV1ci5zdHlsZS5ib3hTaGFkb3cgPSAnMHB4IC0ycHggNXB4IHJnYmEoMCwgMCwgMCwgMC4xKSc7DQoNCi8vIFRyb3V2ZXIgbGEgc2VjdGlvbiBkJ2hpc3RvcmlxdWUgZGUgY29udmVyc2F0aW9uDQp2YXIgc2VjdGlvbkhpc3RvcmlxdWUgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjbWVzc2FnZV9zZW5kZXIgPiBkaXYnKTsNCg0KLy8gT2J0ZW5pciBsZXMgY29vcmRvbm7pZXMgZXQgZGltZW5zaW9ucyBkZSBsYSBzZWN0aW9uIGQnaGlzdG9yaXF1ZSBkZSBjb252ZXJzYXRpb24NCnZhciByZWN0U2VjdGlvbkhpc3RvcmlxdWUgPSBzZWN0aW9uSGlzdG9yaXF1ZS5nZXRCb3VuZGluZ0NsaWVudFJlY3QoKTsNCg0KLy8gRm9uY3Rpb24gcG91ciBn6XJlciBsJ+l26W5lbWVudCBkZSBk6WZpbGVtZW50DQpmdW5jdGlvbiBoYW5kbGVTY3JvbGwoKSB7DQogICAgdmFyIHNjcm9sbFRvcCA9IHdpbmRvdy5wYWdlWU9mZnNldCB8fCBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuc2Nyb2xsVG9wOw0KICAgIHZhciBvZmZzZXQgPSAzMDA7ICANCiAgICBpZiAoc2Nyb2xsVG9wID49IHJlY3RTZWN0aW9uSGlzdG9yaXF1ZS50b3AgLSByZWN0U2VjdGlvbkFmaXhlci5oZWlnaHQgLSBvZmZzZXQgJiYgc2Nyb2xsVG9wIDwgcmVjdFNlY3Rpb25IaXN0b3JpcXVlLmJvdHRvbSAtIG9mZnNldCkgew0KICAgICAgICAvLyBSZW1ldHRyZSBsYSBzZWN0aW9uIOAgZml4ZXIg4CBzb24gZW1wbGFjZW1lbnQgZCdvcmlnaW5lIGV0IHN1cHByaW1lciBsJ2VzcGFjZSBy6XNlcnbpDQogICAgICAgIGlmIChub3V2ZWF1Q29udGVuZXVyLmNvbnRhaW5zKHNlY3Rpb25BZml4ZXIpKSB7DQogICAgICAgICAgICBwYXJlbnRPcmlnaW5hbC5pbnNlcnRCZWZvcmUoc2VjdGlvbkFmaXhlciwgZXNwYWNlUmVzZXJ2ZSk7DQogICAgICAgICAgICBwYXJlbnRPcmlnaW5hbC5yZW1vdmVDaGlsZChlc3BhY2VSZXNlcnZlKTsNCiAgICAgICAgfQ0KICAgICAgICBub3V2ZWF1Q29udGVuZXVyLnN0eWxlLnZpc2liaWxpdHkgPSAnaGlkZGVuJzsNCiAgICB9IGVsc2Ugew0KICAgICAgICAvLyBE6XBsYWNlciBsYSBzZWN0aW9uIOAgZml4ZXIgZGFucyBsZSBub3V2ZWF1IGNvbnRlbmV1ciBldCBpbnPpcmVyIGwnZXNwYWNlIHLpc2Vydukg4CBzb24gZW1wbGFjZW1lbnQgZCdvcmlnaW5lDQogICAgICAgIGlmICghbm91dmVhdUNvbnRlbmV1ci5jb250YWlucyhzZWN0aW9uQWZpeGVyKSkgew0KICAgICAgICAgICAgcGFyZW50T3JpZ2luYWwuaW5zZXJ0QmVmb3JlKGVzcGFjZVJlc2VydmUsIHNlY3Rpb25BZml4ZXIpOw0KICAgICAgICAgICAgbm91dmVhdUNvbnRlbmV1ci5hcHBlbmRDaGlsZChzZWN0aW9uQWZpeGVyKTsNCiAgICAgICAgfQ0KICAgICAgICBub3V2ZWF1Q29udGVuZXVyLnN0eWxlLnZpc2liaWxpdHkgPSAndmlzaWJsZSc7DQogICAgfQ0KfQ0KDQovLyBBam91dGVyIGxlIG5vdXZlYXUgY29udGVuZXVyIOAgbGEgcGFnZQ0KZG9jdW1lbnQuYm9keS5hcHBlbmRDaGlsZChub3V2ZWF1Q29udGVuZXVyKTsNCg0KLy8gQWpvdXRlciB1biDpY291dGV1ciBkJ+l26W5lbWVudCBkZSBk6WZpbGVtZW50DQp3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcignc2Nyb2xsJywgaGFuZGxlU2Nyb2xsKTsNCg0KDQovLyBSYWZmcmFpY2hpc3NlbWVudCBhdXRvbWF0aXF1ZSBkZSBsYSBwYWdlDQooZnVuY3Rpb24oKSB7DQogICAgdmFyIHJlZnJlc2hJbnRlcnZhbElkOw0KICAgIGRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ2tleWRvd24nLCBmdW5jdGlvbihlKSB7DQogICAgICAgIGlmIChlLmNvZGUgPT09ICdLZXlSJyAmJiBlLmN0cmxLZXkgJiYgZS5zaGlmdEtleSkgew0KICAgICAgICAgICAgaWYgKHJlZnJlc2hJbnRlcnZhbElkKSB7DQogICAgICAgICAgICAgICAgY2xlYXJJbnRlcnZhbChyZWZyZXNoSW50ZXJ2YWxJZCk7DQogICAgICAgICAgICAgICAgcmVmcmVzaEludGVydmFsSWQgPSBudWxsOw0KICAgICAgICAgICAgICAgIGNvbnNvbGUubG9nKCdBdXRvLXJlZnJlc2ggZOlzYWN0aXbpJyk7DQogICAgICAgICAgICB9IGVsc2Ugew0KICAgICAgICAgICAgICAgIGNvbnNvbGUubG9nKCdBdXRvLXJlZnJlc2ggYWN0aXbpJyk7DQogICAgICAgICAgICAgICAgcmVmcmVzaEludGVydmFsSWQgPSBzZXRJbnRlcnZhbChmdW5jdGlvbigpIHsgbG9jYXRpb24ucmVsb2FkKCk7IH0sIDEwMDApOw0KICAgICAgICAgICAgfQ0KICAgICAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpOw0KICAgICAgICAgICAgcmV0dXJuIGZhbHNlOw0KICAgICAgICB9DQogICAgfSk7DQp9KSgpOw0KDQovLyBT6WxlY3RldXIgcG91ciBsZSBwcmVtaWVyIOls6W1lbnQgdGV4dGUNCnZhciBzZWxlY3RvcjEgPSAiYm9keSA+IGRpdi5jb250YWluZXIgPiBkaXYucm93ID4gZGl2Om50aC1jaGlsZCgxKSA+IGRpdjpudGgtY2hpbGQoMikgPiBkaXYucGFuZWwtYm9keSA+IGRpdjpudGgtY2hpbGQoMTApIjsNCg0KLy8gU+lsZWN0ZXVyIHBvdXIgbGUgZGV1eGnobWUg6WzpbWVudCB0ZXh0ZQ0KdmFyIHNlbGVjdG9yMiA9ICJib2R5ID4gZGl2LmNvbnRhaW5lciA+IGRpdi5yb3cgPiBkaXY6bnRoLWNoaWxkKDMpID4gZGl2Om50aC1jaGlsZCgxKSA+IGRpdi5wYW5lbC1ib2R5ID4gZGl2Om50aC1jaGlsZCgxMSkiOw0KDQovLyBT6WxlY3RldXIgcG91ciBsZSB0cm9pc2nobWUg6WzpbWVudCB0ZXh0ZQ0KdmFyIHNlbGVjdG9yMyA9ICJib2R5ID4gZGl2LmNvbnRhaW5lciA+IGRpdi5yb3cgPiBkaXY6bnRoLWNoaWxkKDEpID4gZGl2Om50aC1jaGlsZCgyKSA+IGRpdi5wYW5lbC1ib2R5ID4gZGl2Om50aC1jaGlsZCg4KSA+IGRpdjpudGgtY2hpbGQoMikiOw0KDQovLyBT6WxlY3RldXIgcG91ciBsZSBxdWF0cmnobWUg6WzpbWVudCB0ZXh0ZQ0KdmFyIHNlbGVjdG9yNCA9ICJib2R5ID4gZGl2LmNvbnRhaW5lciA+IGRpdi5yb3cgPiBkaXY6bnRoLWNoaWxkKDMpID4gZGl2Om50aC1jaGlsZCgxKSA+IGRpdi5wYW5lbC1ib2R5ID4gZGl2Om50aC1jaGlsZCg4KSA+IGRpdjpudGgtY2hpbGQoMikiOw0KDQovLyBGb25jdGlvbiBwb3VyIHN1cmxpZ25lciBlbiBqYXVuZSB1biDpbOltZW50DQpmdW5jdGlvbiBoaWdobGlnaHRFbGVtZW50KHNlbGVjdG9yKSB7DQogICAgdmFyIGVsZW1lbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKHNlbGVjdG9yKTsNCiAgICBpZiAoZWxlbWVudCkgew0KICAgICAgICBlbGVtZW50LnN0eWxlLmJhY2tncm91bmRDb2xvciA9ICJ5ZWxsb3ciOw0KICAgIH0NCn0NCg0KLy8gQXBwZWwgZGUgbGEgZm9uY3Rpb24gcG91ciBjaGFxdWUg6WzpbWVudCB0ZXh0ZQ0KaGlnaGxpZ2h0RWxlbWVudChzZWxlY3RvcjEpOw0KaGlnaGxpZ2h0RWxlbWVudChzZWxlY3RvcjIpOw0KaGlnaGxpZ2h0RWxlbWVudChzZWxlY3RvcjMpOw0KaGlnaGxpZ2h0RWxlbWVudChzZWxlY3RvcjQpOw0KDQovLyBT6WxlY3Rpb24gZGUgbGEgem9uZSBkZSB0ZXh0ZQ0KdmFyIHRleHRBcmVhID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI21lc3NhZ2Vfc2VuZGVyID4gZGl2Jyk7DQoNCi8vIEZvbmN0aW9uIHBvdXIgYXVnbWVudGVyIGxhIHRhaWxsZSBkdSB0ZXh0ZQ0KZnVuY3Rpb24gYXVnbWVudGVyVGFpbGxlVGV4dGUoKSB7DQogICAgLy8gTW9kaWZpZXIgbGEgdGFpbGxlIGR1IHRleHRlDQogICAgdGV4dEFyZWEuc3R5bGUuZm9udFNpemUgPSAnMTRweCc7IC8vIFJlbXBsYWNleiAnMTZweCcgcGFyIGxhIHRhaWxsZSBkZSB0ZXh0ZSBzb3VoYWl06WUNCn0NCg0KLy8gQXBwZWwgZGUgbGEgZm9uY3Rpb24gcG91ciBhdWdtZW50ZXIgbGEgdGFpbGxlIGR1IHRleHRlDQphdWdtZW50ZXJUYWlsbGVUZXh0ZSgpOw0KDQoNCg0KDQo="></script><div id="nouveau-conteneur" style="position: fixed; top: 157px; left: 369.833px; width: 523.667px; z-index: 1000; background-color: rgb(248, 249, 250); padding: 10px; box-shadow: rgba(0, 0, 0, 0.1) 0px -2px 5px; visibility: hidden;"></div></body></html>
